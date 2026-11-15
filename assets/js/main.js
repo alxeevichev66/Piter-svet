@@ -7,7 +7,7 @@
     pricePerM2: 1500,                         // базовая цена, ₽/м²
     typeK: { flat: 1, house: 1.2, office: 1.1 }, // наценка за тип объекта
     scopeK: { rough: 1, full: 1.3 },            // черновой / черновой + чистовой
-    metrikaId: 0                               // номер счётчика Яндекс.Метрики (0 — выключено)
+    metrikaId: 114262207                       // номер счётчика Яндекс.Метрики (0 — выключено)
   };
 
   /* ---------- Яндекс.Метрика (включается, когда указан номер) ---------- */
@@ -18,10 +18,12 @@
     (function (m, e, t, r, i, k, a) {
       m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
       m[i].l = 1 * new Date();
+      for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
       k = e.createElement(t); a = e.getElementsByTagName(t)[0];
       k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
-    })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
-    window.ym(CONFIG.metrikaId, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true });
+    })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + CONFIG.metrikaId, 'ym');
+    window.ym(CONFIG.metrikaId, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer',
+      referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
   }
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="tel:"]');
