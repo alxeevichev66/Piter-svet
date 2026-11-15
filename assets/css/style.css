@@ -304,14 +304,19 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
 /* ----- наши работы ----- */
 .works{padding:28px;display:flex;flex-direction:column;gap:20px}
 .works__title{font-size:20px;margin:6px 0 0}
-.works__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
-.works__grid li{display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted-2)}
-.work-photo{padding:0;border:0;background:none;cursor:zoom-in;border-radius:16px;overflow:hidden;display:block}
-.work-photo img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .3s}
+.carousel{position:relative}
+.works__grid{list-style:none;margin:0;padding:0 0 6px;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.works__grid::-webkit-scrollbar{display:none}
+.works__grid li{flex:0 0 260px;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted-2);line-height:1.4}
+.work-photo{padding:0;border:0;background:none;cursor:zoom-in;border-radius:16px;overflow:hidden;display:block;width:100%}
+.work-photo img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;transition:transform .3s}
 .work-photo:hover img{transform:scale(1.04)}
+.carousel__btn{position:absolute;top:110px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(14,19,18,.75);color:#fff;font-size:28px;line-height:1;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.carousel__btn--prev{left:-10px}.carousel__btn--next{right:-10px}
+.carousel__btn[disabled]{opacity:0;pointer-events:none}
 .lightbox{max-width:min(92vw,900px);max-height:92vh;padding:0;border:0;border-radius:20px;background:#0E1312;color:var(--text)}
 .lightbox::backdrop{background:rgba(0,0,0,.8)}
 .lightbox img{display:block;max-width:100%;max-height:82vh;margin:0 auto}
 .lightbox__cap{padding:12px 18px;font-size:14px;color:var(--muted)}
 .lightbox__close{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:26px;cursor:pointer}
-@media (max-width:760px){.works{padding:20px}.works__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+@media (max-width:760px){.works{padding:20px}.works__grid{gap:12px}.works__grid li{flex-basis:72%}.carousel__btn{top:calc(36vw - 22px)}}

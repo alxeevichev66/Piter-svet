@@ -178,6 +178,21 @@
     lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
   }
 
+  /* ---------- Карусели фото ---------- */
+  document.querySelectorAll('.carousel').forEach(function (c) {
+    var track = c.querySelector('.works__grid');
+    var prev = c.querySelector('.carousel__btn--prev'), next = c.querySelector('.carousel__btn--next');
+    function step() { var li = track.querySelector('li'); return li ? li.getBoundingClientRect().width + 16 : 280; }
+    function upd() {
+      prev.disabled = track.scrollLeft < 5;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
+    }
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', upd, { passive: true });
+    window.addEventListener('resize', upd); upd();
+  });
+
   /* ---------- Фильтр статей по разделам ---------- */
   var filter = document.querySelector('.blog-filter');
   if (filter) {
