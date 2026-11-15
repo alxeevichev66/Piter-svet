@@ -193,6 +193,18 @@ def build_toc_and_checks(posts):
             art = re.sub(r'(<p class="article__meta">.*?</p>\n)', r"\1<!-- TOC:START — собирается tools/build.py -->\n<!-- TOC:END -->\n", art, count=1, flags=re.S)
         art = replace_block(art, "TOC", toc)
         new = text[:a] + art + text[b:]
+        # разметка FAQPage по блоку «Частые вопросы»
+        qa = re.findall(r'<details class="ig-faq__item"><summary>(.*?)</summary><div class="ig-faq__a">(.*?)</div></details>', art, re.S)
+        strip = lambda x: html.unescape(re.sub(r"<[^>]+>", "", x)).strip()
+        ld = ""
+        if qa:
+            import json
+            data = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+                {"@type": "Question", "name": strip(q), "acceptedAnswer": {"@type": "Answer", "text": strip(a_)}} for q, a_ in qa]}
+            ld = '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
+        if "<!-- FAQLD:START" not in new:
+            new = new.replace("</head>", "<!-- FAQLD:START — собирается tools/build.py -->\n<!-- FAQLD:END -->\n</head>", 1)
+        new = replace_block(new, "FAQLD", ld)
         if new != text:
             f.write_text(new, encoding="utf-8")
         n = len(re.findall(r'class="ig[ -]|class="ig-', art))

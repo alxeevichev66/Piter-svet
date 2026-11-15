@@ -402,3 +402,14 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
   .ig-bar{grid-template-columns:1fr auto;}.ig-bar__track{grid-column:1/-1;order:3}
   .ig-facts{grid-template-columns:1fr 1fr}.ig-fact__value{font-size:20px}
 }
+/* частые вопросы и списки с жирным началом */
+.ig-faq{display:flex;flex-direction:column;gap:10px;margin:8px 0 26px}
+.ig-faq__item{border-radius:16px;background:rgba(10,16,15,.32);padding:0 18px}
+.ig-faq__item summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px;align-items:center;padding:16px 0;font-weight:600;color:var(--text);font-size:16px}
+.ig-faq__item summary::-webkit-details-marker{display:none}
+.ig-faq__item summary::after{content:'+';color:var(--amber);font-size:24px;line-height:1;flex:none}
+.ig-faq__item[open] summary::after{content:'–'}
+.ig-faq__a{padding:0 0 16px;color:#C9CDD1;font-size:15.5px;line-height:1.6}
+.lead-list{list-style:none;padding:0}
+.lead-list li{position:relative;padding-left:20px}
+.lead-list li::before{content:'';position:absolute;left:2px;top:.7em;width:7px;height:7px;border-radius:50%;background:var(--amber)}

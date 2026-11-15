@@ -103,3 +103,21 @@ def read_time(body):
     n = len(re.sub(r'<[^>]+>', ' ', body).split())
     m = max(3, round(n / 170))
     return f'{m} минут чтения' if m >= 5 else f'{m} минуты чтения'
+
+
+def faq(items, t='Частые вопросы'):
+    """items: [(вопрос, ответ)]. Разметку FAQPage для Яндекса/Google добавляет tools/build.py."""
+    rows = "\n".join(
+        f'          <details class="ig-faq__item"><summary>{q}</summary><div class="ig-faq__a">{a}</div></details>'
+        for q, a in items)
+    return f'        <h2>{t}</h2>\n        <div class="ig-faq">\n{rows}\n        </div>\n'
+
+
+def lead_list(items):
+    """Список с жирным началом: [(жирное, пояснение)]."""
+    rows = "\n".join(f'          <li><strong>{b}</strong> — {t}</li>' for b, t in items)
+    return f'        <ul class="lead-list">\n{rows}\n        </ul>\n'
+
+
+def h3(text):
+    return f'        <h3>{text}</h3>\n'
