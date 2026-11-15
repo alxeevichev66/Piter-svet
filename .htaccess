@@ -21,7 +21,7 @@ ErrorDocument 404 /404.html
   RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
 
   # Служебные файлы не отдаём
-  RewriteRule ^(tools|\.github)/ - [F,L]
+  RewriteRule ^(tools|docs|\.github)/ - [F,L]
   RewriteRule ^(README\.md|\.ftp-deploy-sync-state\.json)$ - [F,L]
 
   # Старые адреса сайта на Тильде → новые страницы (дописать, если в Яндексе были другие страницы)

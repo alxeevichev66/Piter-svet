@@ -22,6 +22,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://xn----dtbhcl5bjjfg.xn--p1ai"   # питер-свет.рф в punycode
 EXCLUDE = {"404.html"}
+# Разделы блога: название → адрес-якорь. Новый раздел добавляется сюда.
+SECTIONS = {
+    "Электрика под ключ": "pod-klyuch",
+    "Замена проводки": "zamena-provodki",
+    "Штробление": "shtroblenie",
+    "Розетки и выключатели": "rozetki",
+    "Щиты и автоматы": "shchity",
+}
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля",
           "августа", "сентября", "октября", "ноября", "декабря"]
 
@@ -55,30 +63,97 @@ def collect_posts():
             "title": title(text),
             "excerpt": meta(text, "article:excerpt") or meta(text, "description"),
             "date": published,
+            "section": meta(text, "article:section") or "Электрика под ключ",
         })
     posts.sort(key=lambda p: p["date"], reverse=True)
     return posts
 
 
+def card(p, heading="h2"):
+    sec_slug = SECTIONS.get(p["section"], "")
+    return (
+        f'        <a class="tile post-card" data-tile data-section="{sec_slug}" href="/blog/{p["slug"]}/">\n'
+        f'          <span class="post-card__meta"><span class="post-card__section">{html.escape(p["section"])}</span>'
+        f'<time class="post-card__date" datetime="{p["date"]}">{human_date(p["date"])}</time></span>\n'
+        f'          <{heading} class="post-card__title">{html.escape(p["title"])}</{heading}>\n'
+        f'          <p class="post-card__text">{html.escape(p["excerpt"])}</p>\n'
+        f'          <span class="post-card__more">Читать →</span>\n'
+        f'        </a>'
+    )
+
+
+def replace_block(text, name, content):
+    """Заменяет содержимое между <!-- NAME:START ... --> и <!-- NAME:END -->."""
+    return re.sub(r"(<!-- %s:START[^>]*-->\n).*?(\s*<!-- %s:END -->)" % (name, name),
+                  lambda m: m.group(1) + (content + "\n" if content else "") + m.group(2).lstrip(), text, flags=re.S)
+
+
 def build_blog_index(posts):
     idx = ROOT / "blog" / "index.html"
     text = idx.read_text(encoding="utf-8")
-    cards = []
+    counts = {}
     for p in posts:
-        cards.append(
-            f'        <a class="tile post-card" data-tile href="/blog/{p["slug"]}/">\n'
-            f'          <time class="post-card__date" datetime="{p["date"]}">{human_date(p["date"])}</time>\n'
-            f'          <h2 class="post-card__title">{html.escape(p["title"])}</h2>\n'
-            f'          <p class="post-card__text">{html.escape(p["excerpt"])}</p>\n'
-            f'          <span class="post-card__more">Читать →</span>\n'
-            f'        </a>'
-        )
-    new = re.sub(r"(<!-- POSTS:START[^>]*-->\n).*?(<!-- POSTS:END -->)",
-                 lambda m: m.group(1) + ("\n".join(cards) + "\n" if cards else "") + m.group(2),
-                 text, flags=re.S)
+        counts[p["section"]] = counts.get(p["section"], 0) + 1
+    chips = [f'        <button type="button" class="pill" data-filter="" aria-pressed="true">Все <span>{len(posts)}</span></button>']
+    for name, slug in SECTIONS.items():
+        n = counts.get(name, 0)
+        if n:
+            chips.append(f'        <button type="button" class="pill" data-filter="{slug}" aria-pressed="false">{html.escape(name)} <span>{n}</span></button>')
+    new = replace_block(text, "SECTIONS", "\n".join(chips))
+    new = replace_block(new, "POSTS", "\n".join(card(p) for p in posts))
     if new != text:
         idx.write_text(new, encoding="utf-8")
-    print(f"blog/index.html: статей — {len(posts)}")
+    print(f"blog/index.html: статей — {len(posts)}, разделов — {len(counts)}")
+
+
+def build_article_nav(posts):
+    """В каждую статью: раздел над заголовком, «Ещё в разделе», кнопки «Все статьи / Предыдущая / Следующая»."""
+    n = len(posts)
+    for i, p in enumerate(posts):
+        f = ROOT / "blog" / p["slug"] / "index.html"
+        text = f.read_text(encoding="utf-8")
+        newer = posts[i - 1] if i > 0 else None
+        older = posts[i + 1] if i + 1 < n else None
+        same = [q for q in posts if q["section"] == p["section"] and q["slug"] != p["slug"]][:3]
+        if len(same) < 3:
+            same += [q for q in posts if q["slug"] != p["slug"] and q not in same][: 3 - len(same)]
+        sec_slug = SECTIONS.get(p["section"], "")
+        parts = ['      <nav class="tile article-nav" data-tile aria-label="Навигация по статьям">']
+        if same:
+            parts.append(f'        <h2 class="article-nav__title">Ещё по теме</h2>')
+            parts.append('        <ul class="article-nav__list">')
+            for q in same:
+                parts.append(f'          <li><a href="/blog/{q["slug"]}/"><span>{html.escape(q["section"])}</span>{html.escape(q["title"])}</a></li>')
+            parts.append('        </ul>')
+        parts.append('        <div class="article-nav__buttons">')
+        parts.append('          <a class="btn btn--ghost" href="/blog/">Все статьи</a>')
+        parts.append(f'          <a class="btn btn--ghost" href="/blog/#{sec_slug}">Раздел «{html.escape(p["section"])}»</a>')
+        if newer:
+            parts.append(f'          <a class="btn btn--ghost" href="/blog/{newer["slug"]}/" rel="prev">← Предыдущая</a>')
+        if older:
+            parts.append(f'          <a class="btn btn--accent" href="/blog/{older["slug"]}/" rel="next">Следующая статья →</a>')
+        parts.append('        </div>')
+        parts.append('      </nav>')
+        nav = "\n".join(parts)
+        if "<!-- NAV:START" not in text:
+            text = text.replace('      <aside class="tile article-cta"', "<!-- NAV:START — собирается tools/build.py -->\n<!-- NAV:END -->\n\n      <aside class=\"tile article-cta\"", 1)
+        new = replace_block(text, "NAV", nav)
+        label = f'<a class="article__section" href="/blog/#{sec_slug}">{html.escape(p["section"])}</a>'
+        if 'class="article__section"' in new:
+            new = re.sub(r'<a class="article__section"[^>]*>.*?</a>', label, new, count=1)
+        else:
+            new = new.replace('        <h1>', f'        {label}\n        <h1>', 1)
+        if new != text:
+            f.write_text(new, encoding="utf-8")
+    print(f"навигация обновлена в статьях: {n}")
+
+
+def build_home_latest(posts):
+    f = ROOT / "index.html"
+    text = f.read_text(encoding="utf-8")
+    new = replace_block(text, "LATEST", "\n".join(card(p, "h3") for p in posts[:3]))
+    if new != text:
+        f.write_text(new, encoding="utf-8")
 
 
 def build_sitemap(posts):
@@ -136,6 +211,8 @@ def check_placeholders():
 if __name__ == "__main__":
     posts = collect_posts()
     build_blog_index(posts)
+    build_article_nav(posts)
+    build_home_latest(posts)
     build_sitemap(posts)
     bust_cache()
     check_placeholders()

@@ -152,11 +152,37 @@
       var names = { flat: 'квартира', house: 'дом', office: 'офис' };
       var area = document.getElementById('lead-area');
       if (area && !area.value) area.value = String(state.area);
+      var typeMap = { flat: 'Квартира', house: 'Дом', office: 'Коммерческое' };
+      var radio = document.querySelector('#lead-form input[name="type"][value="' + typeMap[state.type] + '"]');
+      if (radio) radio.checked = true;
       var calcField = document.getElementById('lead-calc');
       if (calcField) calcField.value = names[state.type] + ', ' + state.area + ' м², ' +
         (state.scope === 'full' ? 'черновой + чистовой' : 'черновой') + ', ≈ ' + fmt(target()) + ' ₽';
       goal('calc_to_form');
     });
+  }
+
+  /* ---------- Фильтр статей по разделам ---------- */
+  var filter = document.querySelector('.blog-filter');
+  if (filter) {
+    var applyFilter = function (slug) {
+      filter.querySelectorAll('button[data-filter]').forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-filter') === slug ? 'true' : 'false');
+      });
+      document.querySelectorAll('.posts .post-card').forEach(function (c) {
+        c.hidden = !!slug && c.getAttribute('data-section') !== slug;
+      });
+      scheduleCable();
+    };
+    filter.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-filter]');
+      if (!b) return;
+      var slug = b.getAttribute('data-filter');
+      history.replaceState(null, '', slug ? '#' + slug : location.pathname);
+      applyFilter(slug);
+    });
+    var initial = location.hash.slice(1);
+    if (initial && filter.querySelector('button[data-filter="' + initial + '"]')) applyFilter(initial);
   }
 
   /* ---------- Форма заявки ---------- */
@@ -167,6 +193,15 @@
     var phone = form.querySelector('input[name="phone"]');
     var ts = form.querySelector('input[name="ts"]');
     if (ts) ts.value = String(Date.now());
+
+    // комментарий: высота как у полей, растёт по мере ввода
+    var comment = form.querySelector('textarea[name="comment"]');
+    function grow() {
+      comment.style.height = 'auto';
+      comment.style.height = Math.min(comment.scrollHeight + 2, 220) + 'px';
+      comment.style.overflowY = comment.scrollHeight > 218 ? 'auto' : 'hidden';
+    }
+    if (comment) { comment.addEventListener('input', grow); }
 
     phone.addEventListener('input', function () {
       var dg = phone.value.replace(/\D/g, '');
@@ -199,6 +234,7 @@
           if (res && res.ok) {
             setStatus('Спасибо! Заявка принята — перезвоним в ближайшее время.', true);
             form.reset();
+            if (comment) grow();
             goal('lead');
           } else {
             setStatus((res && res.error) || 'Не получилось отправить. Позвоните: +7 960 160-44-25', false);

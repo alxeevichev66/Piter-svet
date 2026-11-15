@@ -17,7 +17,7 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/manrope-cyrillic-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-cyrillic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=a917bfb8">
+<link rel="stylesheet" href="/assets/css/style.css?v=fd47cb82">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -233,6 +233,36 @@
         </div>
       </section>
 
+      <!-- Статьи -->
+      <section class="section" id="articles">
+        <div class="section__head section__head--row">
+          <div class="section__head"><span class="kicker">Блог</span><h2 class="h2">Полезные статьи</h2></div>
+          <a class="btn btn--ghost" href="/blog/">Все статьи →</a>
+        </div>
+        <div class="grid">
+<!-- LATEST:START — собирается tools/build.py -->
+        <a class="tile post-card" data-tile data-section="zamena-provodki" href="/blog/alyuminievaya-provodka-na-mednuyu/">
+          <span class="post-card__meta"><span class="post-card__section">Замена проводки</span><time class="post-card__date" datetime="2026-11-15">15 ноября 2026</time></span>
+          <h3 class="post-card__title">Замена алюминиевой проводки на медную: когда пора и как сделать</h3>
+          <p class="post-card__text">Почему алюминиевую проводку меняют на медную, можно ли сделать это частично и как соединять алюминий с медью, если нужно.</p>
+          <span class="post-card__more">Читать →</span>
+        </a>
+        <a class="tile post-card" data-tile data-section="shchity" href="/blog/sborka-elektroshchita-v-kvartire/">
+          <span class="post-card__meta"><span class="post-card__section">Щиты и автоматы</span><time class="post-card__date" datetime="2026-11-15">15 ноября 2026</time></span>
+          <h3 class="post-card__title">Сборка электрощита в квартире: схема, автоматы, УЗО</h3>
+          <p class="post-card__text">Вводной автомат, УЗО и дифавтоматы, группы линий и маркировка — как устроен правильный квартирный щит.</p>
+          <span class="post-card__more">Читать →</span>
+        </a>
+        <a class="tile post-card" data-tile data-section="zamena-provodki" href="/blog/stoimost-zameny-provodki-spb/">
+          <span class="post-card__meta"><span class="post-card__section">Замена проводки</span><time class="post-card__date" datetime="2026-11-15">15 ноября 2026</time></span>
+          <h3 class="post-card__title">Сколько стоит замена проводки в квартире в СПб: цены 2026</h3>
+          <p class="post-card__text">Цена за м², примеры расчёта для типовых квартир и пять факторов, которые сильнее всего меняют смету.</p>
+          <span class="post-card__more">Читать →</span>
+        </a>
+<!-- LATEST:END -->
+        </div>
+      </section>
+
       <!-- Заявка -->
       <section class="section" id="contact">
         <div class="tile contact" data-tile>
@@ -242,10 +272,19 @@
           </div>
           <form class="form" id="lead-form" action="/api/lead.php" method="post" novalidate>
             <label class="field">Имя<input type="text" name="name" autocomplete="name" placeholder="Как к вам обращаться" maxlength="80"></label>
-            <label class="field">Телефон<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7" required maxlength="18"></label>
-            <label class="field">Площадь, м²<input type="text" id="lead-area" name="area" inputmode="numeric" placeholder="Например: 65" maxlength="40"></label>
-            <label class="field">Район<input type="text" id="lead-district" name="district" list="districts" autocomplete="off" placeholder="Начните вводить" maxlength="60"></label>
+            <label class="field">Номер телефона<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7" required maxlength="18"></label>
+            <fieldset class="field field--wide choice">
+              <legend>Тип помещения</legend>
+              <div class="choice__row">
+                <label class="choice__item"><input type="radio" name="type" value="Квартира" checked><span>Квартира</span></label>
+                <label class="choice__item"><input type="radio" name="type" value="Дом"><span>Дом</span></label>
+                <label class="choice__item"><input type="radio" name="type" value="Коммерческое"><span>Коммерческое</span></label>
+              </div>
+            </fieldset>
+            <label class="field"><span>Площадь, м² <span class="opt">· необязательно</span></span><input type="text" id="lead-area" name="area" inputmode="numeric" placeholder="Например: 65" maxlength="40"></label>
+            <label class="field"><span>Район <span class="opt">· необязательно</span></span><input type="text" id="lead-district" name="district" list="districts" autocomplete="off" placeholder="Начните вводить" maxlength="60"></label>
             <datalist id="districts"><option value="Адмиралтейский"><option value="Василеостровский"><option value="Выборгский"><option value="Калининский"><option value="Кировский"><option value="Колпинский"><option value="Красногвардейский"><option value="Красносельский"><option value="Кронштадтский"><option value="Курортный"><option value="Московский"><option value="Невский"><option value="Петроградский"><option value="Петродворцовый"><option value="Приморский"><option value="Пушкинский"><option value="Фрунзенский"><option value="Центральный"><option value="Ленинградская область"></datalist>
+            <label class="field field--wide"><span>Комментарий <span class="opt">· необязательно</span></span><textarea name="comment" id="lead-comment" rows="1" maxlength="1000" placeholder="Что нужно сделать, удобное время для звонка"></textarea></label>
             <input type="hidden" name="calc" id="lead-calc">
             <input type="hidden" name="ts">
             <label class="hp" aria-hidden="true">Не заполняйте<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
@@ -264,6 +303,6 @@
   </div>
   <div class="plugs" aria-hidden="true"></div>
 </div>
-<script src="/assets/js/main.js?v=156c14d5" defer></script>
+<script src="/assets/js/main.js?v=10f615dd" defer></script>
 </body>
 </html>
