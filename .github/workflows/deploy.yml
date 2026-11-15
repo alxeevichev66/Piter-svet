@@ -64,3 +64,19 @@ jobs:
             README.md
             api/config.example.php
             api/data/**
+
+      - name: Сообщить Яндексу о страницах (IndexNow)
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json, re, urllib.request
+          host = "xn----dtbhcl5bjjfg.xn--p1ai"
+          key = open("tools/indexnow_key.txt").read().strip()
+          urls = re.findall(r"<loc>(.*?)</loc>", open("sitemap.xml", encoding="utf-8").read())
+          body = json.dumps({"host": host, "key": key, "keyLocation": f"https://{host}/{key}.txt", "urlList": urls}).encode()
+          req = urllib.request.Request("https://yandex.com/indexnow", data=body, headers={"Content-Type": "application/json; charset=utf-8"})
+          try:
+              r = urllib.request.urlopen(req, timeout=20); print("IndexNow:", r.status, "страниц:", len(urls))
+          except Exception as e:
+              print("IndexNow не принят:", e)
+          PY
