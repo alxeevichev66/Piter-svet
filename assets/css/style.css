@@ -96,6 +96,7 @@ p{margin:0}
 .header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:12px;color:var(--text)}
 .logo:hover{color:var(--text)}
+.logo__img{width:48px;height:48px;flex:none;object-fit:contain;filter:drop-shadow(0 0 10px rgba(217,139,58,.35))}
 .logo__mark{width:44px;height:44px;border-radius:14px;background:var(--amber);display:flex;align-items:center;justify-content:center;flex:none}
 .logo__name{font-family:var(--font-head);font-weight:800;font-size:20px;letter-spacing:-0.01em}
 .logo__name span{color:var(--muted-2);font-weight:700}
