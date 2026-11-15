@@ -327,3 +327,78 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
 .lightbox__cap{padding:12px 18px;font-size:14px;color:var(--muted)}
 .lightbox__close{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:26px;cursor:pointer}
 @media (max-width:760px){.works{padding:20px}.works__grid{gap:12px}.works__grid li{flex-basis:72%}.carousel__btn{top:calc(36vw - 22px)}}
+
+/* ===== Инфографика в статьях (каталог: docs/ARTICLES.md) ===== */
+.ico{width:22px;height:22px;flex:none;color:var(--amber)}
+.ig{margin:22px 0 26px}
+.ig__title{font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--muted-2);letter-spacing:.06em;text-transform:uppercase;margin:0 0 12px}
+/* оглавление */
+.toc{margin:6px 0 26px;padding:18px 20px;border-radius:18px;background:rgba(10,16,15,.32)}
+.toc__title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px}
+.toc ol{margin:0;padding-left:20px;columns:2;column-gap:28px}
+.toc li{margin:0 0 6px;font-size:15px;break-inside:avoid}
+.toc a{color:var(--text-2)}.toc a:hover{color:var(--amber-hover)}
+.article h2{scroll-margin-top:20px}
+/* 1. факты */
+.ig-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.ig-fact{padding:16px;border-radius:18px;background:rgba(10,16,15,.32);display:flex;flex-direction:column;gap:6px}
+.ig-fact .ico{width:26px;height:26px}
+.ig-fact__value{font-family:var(--font-head);font-weight:800;font-size:24px;line-height:1.1;color:var(--amber)}
+.ig-fact__label{font-size:14px;color:var(--text-2);line-height:1.4}
+/* 2. шаги */
+.ig-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;counter-reset:s}
+.ig-step{display:grid;grid-template-columns:44px 1fr;gap:14px;position:relative;padding-bottom:18px}
+.ig-step::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:50%;background:var(--amber);color:var(--amber-ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:800;font-size:18px;z-index:1}
+.ig-step:not(:last-child)::after{content:"";position:absolute;left:21px;top:44px;bottom:0;width:2px;background:rgba(217,139,58,.35)}
+.ig-step__body{padding-top:6px}
+.ig-step__title{font-family:var(--font-head);font-weight:700;font-size:18px;color:var(--text);margin-bottom:4px}
+.ig-step__text{font-size:15.5px;color:#C9CDD1;line-height:1.55}
+.ig-step__meta{display:inline-flex;gap:6px;align-items:center;margin-top:6px;font-size:13px;color:var(--sand)}
+/* 3. признаки / карточки с иконкой */
+.ig-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.ig-card{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:rgba(10,16,15,.32)}
+.ig-card__icon{width:42px;height:42px;border-radius:12px;background:var(--amber-soft);display:flex;align-items:center;justify-content:center;flex:none}
+.ig-card__title{font-weight:600;color:var(--text);font-size:15.5px;line-height:1.35}
+.ig-card__text{font-size:14px;color:var(--muted);line-height:1.45;margin-top:3px}
+.ig-cards--danger .ig-card__icon{background:rgba(232,93,63,.15)}.ig-cards--danger .ico{color:#F08A6E}
+/* 4. сравнение */
+.ig-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ig-col{padding:16px 18px;border-radius:18px;background:rgba(10,16,15,.32)}
+.ig-col__head{display:flex;gap:10px;align-items:center;font-family:var(--font-head);font-weight:700;font-size:17px;margin-bottom:10px}
+.ig-col--bad .ig-col__head{color:#F08A6E}.ig-col--good .ig-col__head{color:#9FD6B5}
+.ig-col--bad{box-shadow:inset 0 3px 0 rgba(240,138,110,.6)}.ig-col--good{box-shadow:inset 0 3px 0 rgba(159,214,181,.6)}
+.ig-col ul{list-style:none;padding:0;margin:0}
+.ig-col li{display:flex;gap:8px;font-size:15px;color:#C9CDD1;line-height:1.45;margin:0 0 8px}
+.ig-col li .ico{width:18px;height:18px;margin-top:2px}
+.ig-col--bad li .ico{color:#F08A6E}.ig-col--good li .ico{color:#9FD6B5}
+/* 5. схема-цепочка */
+.ig-flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.ig-node{flex:1 1 120px;padding:14px 12px;border-radius:16px;background:rgba(10,16,15,.32);display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.ig-node .ico{width:28px;height:28px}
+.ig-node__title{font-weight:600;font-size:14.5px;color:var(--text)}
+.ig-node__text{font-size:12.5px;color:var(--muted);line-height:1.35}
+.ig-flow__arrow{display:flex;align-items:center;color:var(--amber);flex:none}
+.ig-flow__arrow .ico{width:20px;height:20px}
+/* 6. шкала / полосы (только реальные числа) */
+.ig-bars{display:flex;flex-direction:column;gap:12px}
+.ig-bar{display:grid;grid-template-columns:minmax(110px,180px) 1fr auto;gap:12px;align-items:center;font-size:15px;color:var(--text-2)}
+.ig-bar__track{height:12px;border-radius:8px;background:rgba(255,255,255,.07);overflow:hidden}
+.ig-bar__fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#B9692A,#D98B3A)}
+.ig-bar__value{font-family:var(--font-head);font-weight:700;color:var(--amber);white-space:nowrap}
+/* 7. выноски */
+.ig-callout{display:flex;gap:12px;padding:14px 16px;border-radius:16px;margin:20px 0;font-size:15.5px;line-height:1.5;color:var(--text)}
+.ig-callout .ico{width:24px;height:24px;margin-top:1px}
+.ig-callout--warn{background:rgba(232,93,63,.12);box-shadow:inset 3px 0 0 #E8785A}.ig-callout--warn .ico{color:#F08A6E}
+.ig-callout--tip{background:var(--amber-soft);box-shadow:inset 3px 0 0 var(--amber)}
+.ig-callout--pro{background:rgba(110,160,148,.14);box-shadow:inset 3px 0 0 #6FA094}.ig-callout--pro .ico{color:#9FC9BE}
+/* 8. итог «Коротко» */
+.ig-summary{list-style:none;margin:0;padding:18px 20px;border-radius:18px;background:linear-gradient(155deg,rgba(217,139,58,.14),rgba(217,139,58,.04));display:grid;gap:10px}
+.ig-summary li{display:flex;gap:10px;font-size:15.5px;color:var(--text);line-height:1.45;margin:0}
+.ig-summary .ico{width:20px;height:20px;margin-top:2px}
+@media (max-width:760px){
+  .toc ol{columns:1}
+  .ig-compare{grid-template-columns:1fr}
+  .ig-flow{flex-direction:column}.ig-flow__arrow{justify-content:center;transform:rotate(90deg)}
+  .ig-bar{grid-template-columns:1fr auto;}.ig-bar__track{grid-column:1/-1;order:3}
+  .ig-facts{grid-template-columns:1fr 1fr}.ig-fact__value{font-size:20px}
+}

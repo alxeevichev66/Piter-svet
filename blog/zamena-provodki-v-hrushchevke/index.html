@@ -20,7 +20,7 @@
 <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/assets/img/logo-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=f05d418e">
+<link rel="stylesheet" href="/assets/css/style.css?v=cc731f52">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -91,46 +91,89 @@
       <article class="tile article" data-tile>
         <a class="article__section" href="/blog/#zamena-provodki">Замена проводки</a>
         <h1>Замена проводки в хрущевке: что важно знать до начала работ</h1>
-        <p class="article__meta"><time datetime="2026-11-15">15 ноября 2026</time> · 6 минут чтения</p>
-
-        <p>Хрущевки строили массово с конца 1950-х годов, и в большинстве из них проводка с тех пор не менялась. Она рассчитана на холодильник, телевизор и несколько ламп — а сегодня на кухне одновременно работают чайник, духовка, посудомойка и микроволновка. Разбираем, что учесть при замене.</p>
-
-        <h2>Что обычно стоит в хрущевке</h2>
-        <ul>
-          <li><strong>Алюминиевые провода</strong>, часто проложенные прямо под штукатуркой. Со временем алюминий становится хрупким, а контакты в розетках и коробках окисляются и греются.</li>
-          <li><strong>Две жилы без заземления</strong>: фаза и ноль, третьего защитного проводника нет.</li>
-          <li><strong>Одна-две линии на всю квартиру</strong> и пробки или старые автоматы без защиты от утечки тока.</li>
-        </ul>
-        <p class="note">Латать такую сеть по частям невыгодно: при соединении с новой медной проводкой алюминий требует специальных клемм, а каждое старое соединение остаётся слабым местом. В хрущевке проводку практически всегда меняют целиком.</p>
-
-        <h2>Заземление: как правильно</h2>
-        <p>В новой проводке делают три жилы — фаза, ноль и защитный проводник (PE). Но если в этажном щите старого дома нет заземляющей шины, подключать PE некуда. Важно:</p>
-        <ul>
-          <li><strong>Нельзя</strong> подключать защитный проводник к батареям или трубам — это опасно для вас и соседей.</li>
-          <li><strong>Нельзя</strong> соединять «землю» с нулём прямо в розетке (так называемое зануление в розетке) — при обрыве нуля на корпусе техники окажется напряжение.</li>
-          <li>Правильно — проложить трёхжильный кабель и поставить УЗО. Вопрос заземления на вводе в квартиру решается через управляющую компанию.</li>
-        </ul>
-
-        <h2>Несущие стены и трассы кабеля</h2>
-        <p>Многие хрущевки панельные. В несущих стенах панельных домов запрещено делать горизонтальные штробы — это ослабляет конструкцию. Поэтому горизонтальные трассы ведут по потолку или в полу, а к розеткам и выключателям спускаются вертикально. В кирпичных хрущевках ограничений меньше, но проект всё равно делаем до начала работ.</p>
-
-        <h2>Сколько линий нужно в хрущевке</h2>
-        <p>Минимальный разумный набор для 1–2-комнатной квартиры:</p>
-        <ul>
-          <li>освещение — одна-две линии;</li>
-          <li>розетки комнат — отдельная линия;</li>
-          <li>розетки кухни — отдельная линия;</li>
-          <li>электроплита или варочная панель — своя линия, если плита электрическая;</li>
-          <li>стиральная машина и ванная — своя линия с УЗО;</li>
-          <li>кондиционер или бойлер — по линии на каждый, если планируются.</li>
-        </ul>
+        <p class="article__meta"><time datetime="2026-11-15">15 ноября 2026</time> · 3 минуты чтения</p>
+<!-- TOC:START — собирается tools/build.py -->
+        <nav class="toc" aria-label="Содержание">
+          <div class="toc__title">Содержание</div>
+          <ol>
+            <li><a href="#chto-obychno-stoit-v-hruschevke">Что обычно стоит в хрущевке</a></li>
+            <li><a href="#zazemlenie-kak-pravilno">Заземление: как правильно</a></li>
+            <li><a href="#nesuschie-steny-i-trassy-kabelya">Несущие стены и трассы кабеля</a></li>
+            <li><a href="#skolko-liniy-nuzhno-v-hruschevke">Сколько линий нужно в хрущевке</a></li>
+            <li><a href="#hvatit-li-moschnosti">Хватит ли мощности</a></li>
+            <li><a href="#skolko-stoit">Сколько стоит</a></li>
+          </ol>
+        </nav>
+<!-- TOC:END -->
+        <p>Хрущевки строили массово с конца 1950-х, и во многих проводка с тех пор не менялась. Она рассчитана на холодильник, телевизор и пару ламп, а не на кухню, где разом работают чайник, духовка и посудомойка. Что учесть при замене — по пунктам.</p>
+        <div class="ig">
+          <p class="ig__title">Главное за 10 секунд</p>
+          <div class="ig-facts">
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cable"/></svg><span class="ig-fact__value">алюминий</span><span class="ig-fact__label">обычно стоит в старых хрущевках</span></div>
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#shield"/></svg><span class="ig-fact__value">2 жилы</span><span class="ig-fact__label">без заземления и УЗО</span></div>
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#wall"/></svg><span class="ig-fact__value">панель</span><span class="ig-fact__label">горизонтальные штробы в несущих стенах нельзя</span></div>
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#rub"/></svg><span class="ig-fact__value">от 66 000 ₽</span><span class="ig-fact__label">работы для 44 м²</span></div>
+          </div>
+        </div>
+        <h2 id="chto-obychno-stoit-v-hruschevke">Что обычно стоит в хрущевке</h2>
+        <div class="ig">
+          <div class="ig-cards ig-cards--danger">
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cable"/></svg></span><div><div class="ig-card__title">Алюминиевые провода</div><div class="ig-card__text">Часто прямо под штукатуркой; со временем становятся хрупкими.</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#shield"/></svg></span><div><div class="ig-card__title">Нет защитного проводника</div><div class="ig-card__text">Только фаза и ноль, третьей жилы нет.</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#panel"/></svg></span><div><div class="ig-card__title">Одна-две линии на всю квартиру</div><div class="ig-card__text">Пробки или старые автоматы без защиты от утечки.</div></div></div>
+          </div>
+        </div>
+        <div class="ig-callout ig-callout--warn"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#warn"/></svg><div>Латать такую сеть невыгодно: каждое старое соединение остаётся слабым местом, а стык алюминия с медью требует специальных клемм. В хрущевке проводку почти всегда меняют целиком.</div></div>
+        <h2 id="zazemlenie-kak-pravilno">Заземление: как правильно</h2>
+        <div class="ig">
+          <div class="ig-compare">
+            <div class="ig-col ig-col--bad"><div class="ig-col__head"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg>Опасно</div><ul>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Подключать «землю» к батареям или трубам</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Соединять землю с нулём прямо в розетке</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Оставить двухпроводную сеть без УЗО</span></li>
+              </ul></div>
+            <div class="ig-col ig-col--good"><div class="ig-col__head"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg>Правильно</div><ul>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Трёхжильный кабель по всей квартире</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>УЗО на розеточные линии</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Вопрос заземления на вводе — через управляющую компанию</span></li>
+              </ul></div>
+          </div>
+        </div>
+        <h2 id="nesuschie-steny-i-trassy-kabelya">Несущие стены и трассы кабеля</h2>
+        <p>Многие хрущевки панельные, а в несущих стенах панельных домов горизонтальные штробы запрещены — это ослабляет конструкцию. Поэтому трассы ведут так:</p>
+        <div class="ig">
+          <div class="ig-flow">
+            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plan"/></svg><span class="ig-node__title">Потолок или пол</span><span class="ig-node__text">горизонтальная трасса</span></div>
+            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
+            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#drill"/></svg><span class="ig-node__title">Вертикальный спуск</span><span class="ig-node__text">только вертикально в стене</span></div>
+            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
+            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plug"/></svg><span class="ig-node__title">Розетка</span><span class="ig-node__text">точка на своём месте</span></div>
+          </div>
+        </div>
+        <h2 id="skolko-liniy-nuzhno-v-hruschevke">Сколько линий нужно в хрущевке</h2>
+        <div class="ig">
+          <p class="ig__title">Минимальный разумный набор для 1–2-комнатной</p>
+          <div class="ig-cards">
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bulb"/></svg></span><div><div class="ig-card__title">Освещение</div><div class="ig-card__text">1–2 линии</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plug"/></svg></span><div><div class="ig-card__title">Розетки комнат</div><div class="ig-card__text">отдельная линия</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#kitchen"/></svg></span><div><div class="ig-card__title">Розетки кухни</div><div class="ig-card__text">отдельная линия</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#fire"/></svg></span><div><div class="ig-card__title">Электроплита</div><div class="ig-card__text">своя линия, если плита электрическая</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#drop"/></svg></span><div><div class="ig-card__title">Ванная и стиральная машина</div><div class="ig-card__text">своя линия с УЗО</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bolt"/></svg></span><div><div class="ig-card__title">Кондиционер или бойлер</div><div class="ig-card__text">по линии на каждый</div></div></div>
+          </div>
+        </div>
         <p>Как устроен щит под такие линии — в статье <a href="/blog/sborka-elektroshchita-v-kvartire/">«Сборка электрощита в квартире»</a>.</p>
-
-        <h2>Хватит ли мощности</h2>
-        <p>Новая проводка не увеличивает выделенную мощность квартиры — её определяет подключение дома. В старых домах она обычно невелика, поэтому мощную технику распределяют по разным линиям и не включают всё сразу. Узнать выделенную мощность можно в управляющей компании; её увеличение оформляется отдельно через сетевую организацию.</p>
-
-        <h2>Сколько стоит</h2>
-        <p>Работы — <strong>от 1 500 ₽ за м²</strong>: для хрущевки 44 м² это от 66 000 ₽. Подробнее о цене — в статье <a href="/blog/stoimost-zameny-provodki-spb/">«Сколько стоит замена проводки в квартире»</a>.</p>
+        <h2 id="hvatit-li-moschnosti">Хватит ли мощности</h2>
+        <div class="ig-callout ig-callout--pro"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#tool"/></svg><div>Новая проводка не увеличивает выделенную мощность квартиры — её определяет подключение дома. В старых домах она обычно невелика, поэтому мощную технику разносят по разным линиям. Узнать мощность можно в управляющей компании, увеличить — через сетевую организацию.</div></div>
+        <h2 id="skolko-stoit">Сколько стоит</h2>
+        <p>Работы — <strong>от 1 500 ₽ за м²</strong>: для хрущевки 44 м² это от 66 000 ₽. Подробнее — в статье <a href="/blog/stoimost-zameny-provodki-spb/">«Сколько стоит замена проводки в квартире»</a>.</p>
+        <h2 id="korotko">Коротко</h2>
+        <ul class="ig-summary">
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>В хрущевке почти всегда меняют проводку целиком.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Три жилы и УЗО; к трубам и батареям «землю» не подключают.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>В панельных стенах — только вертикальные штробы.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Работы — от 1 500 ₽/м², точная смета после выезда.</span></li>
+        </ul>
       </article>
 
 <!-- NAV:START — собирается tools/build.py -->

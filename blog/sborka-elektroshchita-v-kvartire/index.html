@@ -20,7 +20,7 @@
 <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/assets/img/logo-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=f05d418e">
+<link rel="stylesheet" href="/assets/css/style.css?v=cc731f52">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -91,52 +91,100 @@
       <article class="tile article" data-tile>
         <a class="article__section" href="/blog/#shchity">Щиты и автоматы</a>
         <h1>Сборка электрощита в квартире: что внутри и сколько автоматов нужно</h1>
-        <p class="article__meta"><time datetime="2026-11-15">15 ноября 2026</time> · 5 минут чтения</p>
-
-        <p>Электрощит — это центр всей проводки квартиры. От того, как он собран, зависит, отключится ли линия при перегрузке, сработает ли защита при утечке тока и сможете ли вы через пять лет понять, какой автомат за что отвечает.</p>
-
-        <h2>Из чего состоит квартирный щит</h2>
-        <ul>
-          <li><strong>Корпус (бокс)</strong> — встраиваемый или накладной, с запасом свободных мест на будущее.</li>
-          <li><strong>Вводной автомат</strong> — отключает всю квартиру; номинал подбирается под выделенную мощность.</li>
-          <li><strong>Реле напряжения</strong> — отключает квартиру при опасных скачках напряжения и защищает технику. Ставится по желанию, но для старых домов полезно.</li>
-          <li><strong>УЗО или дифавтоматы</strong> — отключают линию при утечке тока, например при повреждении изоляции или касании токоведущих частей.</li>
-          <li><strong>Автоматы на группы</strong> — защищают кабель каждой линии от перегрузки и короткого замыкания.</li>
-          <li><strong>Шины нуля и защитного проводника</strong> — чтобы провода не скручивать, а подключать аккуратно и надёжно.</li>
-        </ul>
-
-        <h2>Сколько автоматов нужно</h2>
-        <p>Ориентир для 2-комнатной квартиры с электроплитой:</p>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Линия</th><th>Защита</th></tr></thead>
-            <tbody>
-              <tr><td>Освещение</td><td>автомат</td></tr>
-              <tr><td>Розетки комнат</td><td>автомат + УЗО</td></tr>
-              <tr><td>Розетки кухни</td><td>автомат + УЗО</td></tr>
-              <tr><td>Электроплита</td><td>отдельный автомат / дифавтомат</td></tr>
-              <tr><td>Стиральная машина</td><td>дифавтомат</td></tr>
-              <tr><td>Ванная (бойлер, полотенцесушитель)</td><td>дифавтомат</td></tr>
-              <tr><td>Кондиционер</td><td>автомат</td></tr>
-            </tbody>
-          </table>
+        <p class="article__meta"><time datetime="2026-11-15">15 ноября 2026</time> · 3 минуты чтения</p>
+<!-- TOC:START — собирается tools/build.py -->
+        <nav class="toc" aria-label="Содержание">
+          <div class="toc__title">Содержание</div>
+          <ol>
+            <li><a href="#kak-tok-prohodit-cherez-schit">Как ток проходит через щит</a></li>
+            <li><a href="#iz-chego-sostoit-kvartirnyy-schit">Из чего состоит квартирный щит</a></li>
+            <li><a href="#skolko-avtomatov-nuzhno">Сколько автоматов нужно</a></li>
+            <li><a href="#zachem-otdelnye-linii">Зачем отдельные линии</a></li>
+            <li><a href="#kogda-menyat-staryy-schit">Когда менять старый щит</a></li>
+          </ol>
+        </nav>
+<!-- TOC:END -->
+        <p>Электрощит — центр всей проводки. От того, как он собран, зависит, отключится ли линия при перегрузке, сработает ли защита при утечке тока и поймёте ли вы через пять лет, какой автомат за что отвечает.</p>
+        <div class="ig">
+          <p class="ig__title">Главное за 10 секунд</p>
+          <div class="ig-facts">
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#panel"/></svg><span class="ig-fact__value">7–10 модулей</span><span class="ig-fact__label">автоматики в типовой 2-комнатной</span></div>
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#shield"/></svg><span class="ig-fact__value">УЗО 30 мА</span><span class="ig-fact__label">на розетки и мокрые зоны</span></div>
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bolt"/></svg><span class="ig-fact__value">вводной автомат</span><span class="ig-fact__label">по выделенной мощности</span></div>
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plan"/></svg><span class="ig-fact__value">маркировка</span><span class="ig-fact__label">каждого автомата — обязательно</span></div>
+          </div>
         </div>
-        <p>Итого обычно 7–10 модулей автоматики плюс вводной автомат. Точный состав определяется проектом — под вашу технику и количество комнат.</p>
-
-        <h2>Зачем отдельные линии</h2>
-        <p>Если всё висит на одном автомате, то при включении чайника и духовки одновременно отключится полквартиры — а при неисправности стиральной машины придётся искать, что именно сработало. Отдельные линии на мощных потребителей разгружают кабель и делают поиск неисправностей простым.</p>
-
-        <h2>Маркировка — обязательна</h2>
-        <p>Каждый автомат подписывается: «Кухня, розетки», «Ванная», «Свет, комнаты». Через годы вам или другому электрику не придётся выключать всё подряд, чтобы поменять розетку.</p>
-
-        <h2>Когда менять старый щит</h2>
-        <ul>
-          <li>стоят пробки или старые автоматы без УЗО;</li>
-          <li>нет мест под новые линии;</li>
-          <li>автоматы нагреваются или срабатывают без видимой причины;</li>
-          <li>планируется полная замена проводки — щит меняется вместе с ней.</li>
+        <h2 id="kak-tok-prohodit-cherez-schit">Как ток проходит через щит</h2>
+        <div class="ig">
+          <div class="ig-flow">
+            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bolt"/></svg><span class="ig-node__title">Ввод</span><span class="ig-node__text">кабель от этажного щита</span></div>
+            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
+            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#panel"/></svg><span class="ig-node__title">Вводной автомат</span><span class="ig-node__text">отключает всю квартиру</span></div>
+            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
+            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#shield"/></svg><span class="ig-node__title">Реле напряжения</span><span class="ig-node__text">защита от скачков</span></div>
+            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
+            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#shield"/></svg><span class="ig-node__title">УЗО / дифавтоматы</span><span class="ig-node__text">от утечки тока</span></div>
+            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
+            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cable"/></svg><span class="ig-node__title">Группы</span><span class="ig-node__text">автомат на каждую линию</span></div>
+          </div>
+        </div>
+        <h2 id="iz-chego-sostoit-kvartirnyy-schit">Из чего состоит квартирный щит</h2>
+        <div class="ig">
+          <div class="ig-cards">
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#panel"/></svg></span><div><div class="ig-card__title">Корпус</div><div class="ig-card__text">Встраиваемый или накладной, с запасом мест на будущее.</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bolt"/></svg></span><div><div class="ig-card__title">Вводной автомат</div><div class="ig-card__text">Номинал — под выделенную мощность квартиры.</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#shield"/></svg></span><div><div class="ig-card__title">Реле напряжения</div><div class="ig-card__text">По желанию; для старых домов полезно.</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#shield"/></svg></span><div><div class="ig-card__title">УЗО и дифавтоматы</div><div class="ig-card__text">Отключают линию при повреждении изоляции.</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plug"/></svg></span><div><div class="ig-card__title">Автоматы групп</div><div class="ig-card__text">Защищают кабель каждой линии от перегрузки.</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cable"/></svg></span><div><div class="ig-card__title">Шины N и PE</div><div class="ig-card__text">Чтобы провода не скручивать, а подключать надёжно.</div></div></div>
+          </div>
+        </div>
+        <h2 id="skolko-avtomatov-nuzhno">Сколько автоматов нужно</h2>
+        <div class="ig">
+          <p class="ig__title">Ориентир для 2-комнатной с электроплитой</p>
+          <div class="ig-cards">
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bulb"/></svg></span><div><div class="ig-card__title">Освещение</div><div class="ig-card__text">автомат</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plug"/></svg></span><div><div class="ig-card__title">Розетки комнат</div><div class="ig-card__text">автомат + УЗО</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#kitchen"/></svg></span><div><div class="ig-card__title">Розетки кухни</div><div class="ig-card__text">автомат + УЗО</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#fire"/></svg></span><div><div class="ig-card__title">Электроплита</div><div class="ig-card__text">отдельный автомат или дифавтомат</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#drop"/></svg></span><div><div class="ig-card__title">Стиральная машина</div><div class="ig-card__text">дифавтомат</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#drop"/></svg></span><div><div class="ig-card__title">Ванная</div><div class="ig-card__text">дифавтомат</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bolt"/></svg></span><div><div class="ig-card__title">Кондиционер</div><div class="ig-card__text">автомат</div></div></div>
+          </div>
+        </div>
+        <div class="ig-callout ig-callout--tip"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bulb"/></svg><div>Итого обычно 7–10 модулей автоматики плюс вводной автомат. Точный состав — по проекту, под вашу технику.</div></div>
+        <h2 id="zachem-otdelnye-linii">Зачем отдельные линии</h2>
+        <div class="ig">
+          <div class="ig-compare">
+            <div class="ig-col ig-col--bad"><div class="ig-col__head"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg>Всё на одном автомате</div><ul>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Чайник + духовка — и отключилась половина квартиры</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Сломалась стиралка — непонятно, что сработало</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Кабель работает на пределе</span></li>
+              </ul></div>
+            <div class="ig-col ig-col--good"><div class="ig-col__head"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg>Отдельные линии</div><ul>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Мощная техника не мешает друг другу</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Неисправность сразу видно по автомату</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Кабель и контакты не перегружены</span></li>
+              </ul></div>
+          </div>
+        </div>
+        <h2 id="kogda-menyat-staryy-schit">Когда менять старый щит</h2>
+        <div class="ig">
+          <div class="ig-cards ig-cards--danger">
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#warn"/></svg></span><div><div class="ig-card__title">Стоят пробки или автоматы без УЗО</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#panel"/></svg></span><div><div class="ig-card__title">Нет мест под новые линии</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#fire"/></svg></span><div><div class="ig-card__title">Автоматы греются или срабатывают сами</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#tool"/></svg></span><div><div class="ig-card__title">Планируется замена проводки</div><div class="ig-card__text">щит меняется вместе с ней</div></div></div>
+          </div>
+        </div>
+        <p>Сборка щита входит в полную замену проводки — <strong>от 1 500 ₽ за м²</strong>. Подробнее — в статье <a href="/blog/stoimost-zameny-provodki-spb/">«Сколько стоит замена проводки»</a>.</p>
+        <h2 id="korotko">Коротко</h2>
+        <ul class="ig-summary">
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Вводной автомат, реле напряжения, УЗО и автоматы групп — основа щита.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>На мощную технику — отдельные линии.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Каждый автомат подписан.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Щит собираем вместе с заменой проводки.</span></li>
         </ul>
-        <p>Сборка щита входит в нашу полную замену проводки — <strong>от 1 500 ₽ за м²</strong>. Подробнее о цене — в статье <a href="/blog/stoimost-zameny-provodki-spb/">«Сколько стоит замена проводки»</a>.</p>
       </article>
 
 <!-- NAV:START — собирается tools/build.py -->

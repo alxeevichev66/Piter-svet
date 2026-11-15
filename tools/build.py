@@ -148,6 +148,59 @@ def build_article_nav(posts):
     print(f"навигация обновлена в статьях: {n}")
 
 
+TRANSLIT = dict(zip("абвгдеёжзийклмнопрстуфхцчшщъыьэюя",
+    ["a","b","v","g","d","e","e","zh","z","i","y","k","l","m","n","o","p","r","s","t","u","f","h","c","ch","sh","sch","","y","","e","yu","ya"]))
+
+
+def slugify(text):
+    t = "".join(TRANSLIT.get(c, c) for c in re.sub(r"<[^>]+>", "", text).lower())
+    return re.sub(r"[^a-z0-9]+", "-", t).strip("-")[:48] or "razdel"
+
+
+def build_toc_and_checks(posts):
+    """Оглавление по заголовкам h2 в каждой статье + проверка, что есть инфографика."""
+    for p in posts:
+        f = ROOT / "blog" / p["slug"] / "index.html"
+        text = f.read_text(encoding="utf-8")
+        a = text.find('<article class="tile article"')
+        b = text.find("</article>", a)
+        if a < 0 or b < 0:
+            continue
+        art = text[a:b]
+        used = set()
+
+        def add_id(m):
+            attrs, inner = m.group(1), m.group(2)
+            hid = re.search(r'id="([^"]+)"', attrs)
+            sid = hid.group(1) if hid else slugify(inner)
+            base, i = sid, 2
+            while sid in used:
+                sid = f"{base}-{i}"; i += 1
+            used.add(sid)
+            if not hid:
+                attrs = attrs + f' id="{sid}"'
+            return f"<h2{attrs}>{inner}</h2>"
+
+        art = re.sub(r"<h2([^>]*)>(.*?)</h2>", add_id, art)
+        heads = re.findall(r'<h2[^>]*id="([^"]+)"[^>]*>(.*?)</h2>', art)
+        heads = [(i, h) for i, h in heads if "Коротко" not in h]
+        toc = ""
+        if len(heads) >= 3:
+            items = "\n".join(f'            <li><a href="#{i}">{re.sub(r"<[^>]+>", "", h)}</a></li>' for i, h in heads)
+            toc = ('        <nav class="toc" aria-label="Содержание">\n          <div class="toc__title">Содержание</div>\n'
+                   f"          <ol>\n{items}\n          </ol>\n        </nav>")
+        if "<!-- TOC:START" not in art:
+            art = re.sub(r'(<p class="article__meta">.*?</p>\n)', r"\1<!-- TOC:START — собирается tools/build.py -->\n<!-- TOC:END -->\n", art, count=1, flags=re.S)
+        art = replace_block(art, "TOC", toc)
+        new = text[:a] + art + text[b:]
+        if new != text:
+            f.write_text(new, encoding="utf-8")
+        n = len(re.findall(r'class="ig[ -]|class="ig-', art))
+        blocks = len(set(re.findall(r'class="(ig-(?:facts|steps|cards|compare|flow|bars|callout|summary))', art)))
+        if blocks < 4:
+            print(f"! мало инфографики в {p['slug']}: {blocks} типов блоков (нужно не меньше 4)", file=sys.stderr)
+
+
 def build_home_latest(posts):
     f = ROOT / "index.html"
     text = f.read_text(encoding="utf-8")
@@ -212,6 +265,7 @@ if __name__ == "__main__":
     posts = collect_posts()
     build_blog_index(posts)
     build_article_nav(posts)
+    build_toc_and_checks(posts)
     build_home_latest(posts)
     build_sitemap(posts)
     bust_cache()
