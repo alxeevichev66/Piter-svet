@@ -246,11 +246,13 @@ def build_chrome():
 
 
 # ---------------------------------------------------------------- автор и ссылка на услугу в статьях
-AUTHOR = {"name": "Алексей Лебедев", "job": "Мастер-электрик, руководитель бригады «Питер-Света»",
+AUTHOR = {"name": "Алексей Лебедев", "job": "Мастер-электрик, руководитель бригады «Питер-Света», опыт более 6 лет",
           "photo": "/assets/img/author.webp"}   # фото появится — положить файл, блок подхватит сам
 SERVICE_LINKS = [  # (условие, адрес, название) — первая подходящая строка
     (lambda p: "hrushch" in p["slug"], "/uslugi/zamena-provodki-v-hrushchevke-spb/", "Замена проводки в хрущевке в СПб"),
-    (lambda p: p["section"] in ("Электрика под ключ", "Щиты и автоматы", "Розетки и выключатели", "Штробление"),
+    (lambda p: "novostro" in p["slug"], "/uslugi/elektrika-v-novostroyke-spb/", "Электрика в новостройке в СПб"),
+    (lambda p: "shchit" in p["slug"] or p["section"] == "Щиты и автоматы", "/uslugi/sborka-elektroshchita-spb/", "Сборка электрощита в СПб"),
+    (lambda p: p["section"] in ("Электрика под ключ", "Розетки и выключатели", "Штробление"),
      "/uslugi/elektrika-pod-klyuch-spb/", "Электрика под ключ в СПб"),
     (lambda p: True, "/uslugi/zamena-provodki-v-kvartire-spb/", "Замена проводки в квартире в СПб"),
 ]
