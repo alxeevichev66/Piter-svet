@@ -1,4 +1,4 @@
-# Еженедельный SEO-отчёт: Вебмастер + Метрика → Telegram и docs/seo-report.md
+# Еженедельный SEO-отчёт: Вебмастер + Метрика → MAX и docs/seo-report.md
 name: "SEO-отчёт"
 
 on:
@@ -24,15 +24,21 @@ jobs:
           YANDEX_TOKEN: ${{ secrets.YANDEX_TOKEN }}
         run: python3 tools/yandex_report.py
 
-      - name: Отправить в Telegram
+      - name: Сертификаты НУЦ Минцифры (для MAX)
+        if: always()
+        run: bash tools/ru-ca.sh /tmp/cacert.pem
+
+      - name: Отправить в MAX
         if: always()
         env:
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          MAX_BOT_TOKEN: ${{ secrets.MAX_BOT_TOKEN }}
+          MAX_USER_ID: ${{ secrets.MAX_USER_ID }}
         run: |
           [ -f docs/seo-report.md ] || echo "Отчёт не собран: проверьте секрет YANDEX_TOKEN" > docs/seo-report.md
-          text=$(head -c 3900 docs/seo-report.md | sed 's/\*\*//g')
-          curl -sS -m 20 "https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$TG_CHAT_ID" --data-urlencode "text=📊 $text" >/dev/null && echo "отправлено"
+          python3 -c "import json;t=open('docs/seo-report.md',encoding='utf-8').read().replace('**','')[:3900];print(json.dumps({'text':'📊 '+t},ensure_ascii=False))" > /tmp/msg.json
+          code=$(curl -sS -m 30 --cacert /tmp/cacert.pem -X POST "https://platform-api2.max.ru/messages?user_id=$MAX_USER_ID" \
+            -H "Authorization: $MAX_BOT_TOKEN" -H "Content-Type: application/json" --data-binary @/tmp/msg.json -o /tmp/max.json -w "%{http_code}")
+          echo "MAX → HTTP $code"; [ "$code" = "200" ] || { head -c 300 /tmp/max.json; exit 1; }
 
       - name: Сохранить отчёт в репозиторий
         if: always()
