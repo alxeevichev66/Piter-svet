@@ -8,4 +8,4 @@
 - Переходы по ссылкам на сайтах: визитов 1, целей 0
 
 ## Ошибки
-- Вебмастер: HTTP 403 — {"error_code":"ACCESS_FORBIDDEN","error_message":"Access to this resource is not allowed with scopes available for this application. Required scope: COMMON, application scopes: [ALL_SCOPES, HOST_LIST,
+- Вебмастер: HTTP 404 — {"host_id":null,"error_code":"HOST_NOT_LOADED","error_message":"Host \"https:xn----dtbhcl5bjjfg.xn--p1ai:443\" is not loaded in Ya.Webmaster yet"}
