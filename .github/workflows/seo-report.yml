@@ -1,0 +1,41 @@
+# Еженедельный SEO-отчёт: Вебмастер + Метрика → Telegram и docs/seo-report.md
+name: "SEO-отчёт"
+
+on:
+  schedule:
+    - cron: "17 7 * * 1"   # понедельник, 10:17 по Москве
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/seo-report.yml", "tools/yandex_report.py"]
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Собрать отчёт
+        id: rep
+        env:
+          YANDEX_TOKEN: ${{ secrets.YANDEX_TOKEN }}
+        run: python3 tools/yandex_report.py
+
+      - name: Отправить в Telegram
+        if: always()
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: |
+          [ -f docs/seo-report.md ] || echo "Отчёт не собран: проверьте секрет YANDEX_TOKEN" > docs/seo-report.md
+          text=$(head -c 3900 docs/seo-report.md | sed 's/\*\*//g')
+          curl -sS -m 20 "https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$TG_CHAT_ID" --data-urlencode "text=📊 $text" >/dev/null && echo "отправлено"
+
+      - name: Сохранить отчёт в репозиторий
+        if: always()
+        run: |
+          git config user.name "seo-report-bot"; git config user.email "actions@users.noreply.github.com"
+          git add docs/seo-report.md && git commit -m "SEO-отчёт $(date +%F) [skip ci]" && git push || echo "без изменений"
