@@ -47,6 +47,13 @@ ErrorDocument 404 /404.html
 </IfModule>
 AddType font/woff2 .woff2
 
+# Страницы всегда проверяются на свежесть, CSS/JS обновляются по метке ?v=
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
 # Безопасность
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"

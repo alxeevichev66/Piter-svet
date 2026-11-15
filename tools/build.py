@@ -12,6 +12,7 @@
   python3 tools/build.py
 При автодеплое на GitHub скрипт запускается сам.
 """
+import hashlib
 import html
 import re
 import sys
@@ -103,6 +104,26 @@ def build_sitemap(posts):
     print(f"sitemap.xml: страниц — {len(pages)}")
 
 
+def bust_cache():
+    """Добавляет к ссылкам на style.css и main.js метку версии (?v=хеш содержимого).
+    Изменился файл — изменилась метка, и браузер посетителя скачает новую версию,
+    а не возьмёт старую из кэша."""
+    assets = ["/assets/css/style.css", "/assets/js/main.js"]
+    tags = {a: hashlib.md5((ROOT / a.lstrip("/")).read_bytes()).hexdigest()[:8] for a in assets}
+    changed = 0
+    for f in ROOT.rglob("*.html"):
+        if any(part.startswith(".") for part in f.relative_to(ROOT).parts):
+            continue
+        text = f.read_text(encoding="utf-8")
+        new = text
+        for a, h in tags.items():
+            new = re.sub(re.escape(a) + r'(\?v=[0-9a-f]+)?"', f'{a}?v={h}"', new)
+        if new != text:
+            f.write_text(new, encoding="utf-8")
+            changed += 1
+    print(f"метки версий CSS/JS обновлены в файлах: {changed}")
+
+
 def check_placeholders():
     warn = []
     for f in ROOT.rglob("*.html"):
@@ -116,4 +137,5 @@ if __name__ == "__main__":
     posts = collect_posts()
     build_blog_index(posts)
     build_sitemap(posts)
+    bust_cache()
     check_placeholders()
