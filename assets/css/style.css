@@ -95,10 +95,10 @@ p{margin:0}
 .header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:12px;color:var(--text)}
 .logo:hover{color:var(--text)}
-.logo__img{width:48px;height:48px;flex:none;object-fit:contain;filter:drop-shadow(0 0 10px rgba(217,139,58,.35))}
+.logo__img{width:56px;height:56px;flex:none;object-fit:contain;filter:drop-shadow(0 0 10px rgba(217,139,58,.35))}
 .logo__mark{width:44px;height:44px;border-radius:14px;background:var(--amber);display:flex;align-items:center;justify-content:center;flex:none}
-.logo__name{font-family:var(--font-head);font-weight:800;font-size:20px;letter-spacing:-0.01em}
-.logo__name span{color:var(--muted-2);font-weight:700}
+.logo__name{white-space:nowrap;font-family:var(--font-head);font-weight:800;font-size:27px;letter-spacing:-0.015em;color:var(--amber);text-shadow:0 0 18px rgba(217,139,58,.35)}
+.logo__name span{color:var(--muted-2);font-weight:700;font-size:17px;text-shadow:none}
 .nav{display:flex;gap:28px;font-size:15px}
 .nav a{color:var(--text-2)}
 .nav a:hover{color:var(--text)}
@@ -279,7 +279,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
   .article h2{font-size:24px}
   .header__cta .btn{display:none}
 }
-@media (max-width:420px){.logo__name span{display:none}}
+@media (max-width:420px){.header{flex-wrap:nowrap;gap:10px}.logo{gap:8px}.logo__name span{display:none}.logo__name{font-size:21px}.logo__img{width:46px;height:46px}.header .phone{font-size:14px}}
 @media (max-width:760px){.tile{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
