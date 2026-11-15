@@ -62,8 +62,7 @@ p{margin:0}
 .cable{position:absolute;left:0;top:0;z-index:0;pointer-events:none}
 .cable path{fill:none;stroke:var(--cable);stroke-width:6;stroke-linecap:butt;stroke-linejoin:round}
 .plugs{position:absolute;inset:0;z-index:2;pointer-events:none}
-.plug{position:absolute;background:linear-gradient(155deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02)),rgba(40,52,50,0.06);
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.plug{position:absolute;background:rgba(44,58,56,0.55)}
 
 /* ----- плитка «матовое стекло» ----- */
 .tile{position:relative;background:var(--glass);border:0;border-radius:var(--radius);
@@ -281,6 +280,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
   .header__cta .btn{display:none}
 }
 @media (max-width:420px){.logo__name span{display:none}}
+@media (max-width:760px){.tile{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
 /* ----- вопросы ----- */
