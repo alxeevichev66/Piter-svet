@@ -438,7 +438,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
 /* Автор статьи и ссылка на услугу */
 .author{display:flex;gap:14px;align-items:center;margin:4px 0 8px}
 .author__photo{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none}
-.author__photo--initials{display:grid;place-items:center;background:rgba(217,139,58,.18);color:var(--amber,#D98B3A);font-weight:700;letter-spacing:.5px}
+.author .author__photo--initials{display:grid;place-items:center;line-height:1;font-size:18px;background:rgba(217,139,58,.18);color:var(--amber,#D98B3A);font-weight:700;letter-spacing:.5px}
 .author b{display:block;font-size:16px}
-.author span{display:block;font-size:14px;line-height:1.4;color:var(--muted-2)}
+.author div span{display:block;font-size:14px;line-height:1.4;color:var(--muted-2)}
 .service-link{margin-top:22px;padding:14px 18px;border-radius:14px;background:rgba(217,139,58,.10)}

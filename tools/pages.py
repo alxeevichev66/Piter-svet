@@ -95,7 +95,7 @@ def page(path, title, desc, h1, crumbs, main_html, graph):
 <meta property="og:title" content="{h1}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{BASE}/assets/img/og.jpg">
+<meta property="og:image" content="{BASE}/assets/img/og.jpg?v=2">
 <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/assets/img/logo-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
@@ -351,23 +351,17 @@ def build_calc():
     faq_items = [("Почему цена ориентировочная?", "Точную стоимость определяют число точек, материал стен и состав щита. Их видно только на объекте, поэтому окончательная цена — в смете после выезда."),
                  ("Что такое черновой и чистовой монтаж?", "Черновой — штробы, кабель, подрозетники и щит до отделки. Чистовой — розетки, выключатели и светильники после отделки."),
                  ("Материалы входят в цену?", "Нет, в таблице — стоимость работ. Материалы идут в смете отдельной строкой.")]
-    body = (p(f'<b>Замена электрики в квартире стоит от {rub(base)} за м² площади</b> за черновой монтаж. С установкой розеток, выключателей и светильников — '
-              f'от {rub(base * float(sk["full"]))} за м². Для частного дома и офиса цена выше из-за длины трасс и нагрузки. '
-              'Ниже — таблица цен и калькулятор. Точную сумму мастер называет в смете после выезда.')
-            + step_table(rows, 'Цена работ за м² площади', heads)
+    body = (p('<b>Калькулятор стоимости электромонтажа</b> показывает ориентировочную цену работ за минуту: выберите тип объекта, площадь и объём работ. '
+              'Для частного дома и офиса цена выше, чем для квартиры, из-за длины трасс и нагрузки. Точную сумму мастер называет в смете после выезда.')
             + step_table(ex, 'Примеры для квартиры', ('Площадь', 'Черновой монтаж', 'Черновой + чистовой'))
             + callout('tip', 'Цены — за работу. Материалы в смете идут отдельной строкой, их можно закупить самим или поручить нам.'))
     main = (article("Калькулятор стоимости электромонтажа", body, "Калькулятор").replace('      </article>\n\n', '')
             + '      </article>\n\n' + calc_sec + '\n' + section("contact")
             + '\n      <article class="tile article" data-tile>\n' + faq(faq_items) + '      </article>\n')
     crumbs = [("Главная", "/"), ("Калькулятор стоимости", None)]
-    graph = [{"@type": "Service", "name": "Электромонтаж и замена проводки", "provider": PROVIDER, "areaServed": AREA,
-              "offers": [{"@type": "Offer", "name": n, "priceCurrency": "RUB",
-                          "priceSpecification": {"@type": "UnitPriceSpecification", "price": round(base * float(tk[k])), "priceCurrency": "RUB",
-                                                 "unitText": "м²", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MTK"}}}
-                         for k, n in names]},
+    graph = [{"@type": "Service", "name": "Электромонтаж и замена проводки", "provider": PROVIDER, "areaServed": AREA},
              faq_ld(faq_items), crumbs_ld(crumbs)]
-    page("/kalkulyator/", "Калькулятор стоимости электромонтажа", f"Калькулятор стоимости электромонтажа в СПб: замена электрики от {base} ₽ за м², таблица цен для квартиры, дома и офиса, расчёт за минуту.",
+    page("/kalkulyator/", "Калькулятор стоимости электромонтажа", "Калькулятор стоимости электромонтажа в СПб: ориентировочная цена замены электрики в квартире, доме и офисе за минуту. Точная смета — после выезда мастера.",
          "Калькулятор стоимости электромонтажа", crumbs, main, graph)
 
 
