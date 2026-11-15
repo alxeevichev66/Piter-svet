@@ -209,6 +209,8 @@ def build_toc_and_checks(posts):
             f.write_text(new, encoding="utf-8")
         n = len(re.findall(r'class="ig[ -]|class="ig-', art))
         blocks = len(set(re.findall(r'class="(ig-(?:facts|steps|cards|compare|flow|bars|callout|summary))', art)))
+        if "₽" in art:
+            print(f"! в статье {p['slug']} есть цена (₽) — в статьях цен быть не должно", file=sys.stderr)
         if blocks < 4:
             print(f"! мало инфографики в {p['slug']}: {blocks} типов блоков (нужно не меньше 4)", file=sys.stderr)
 
