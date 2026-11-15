@@ -178,6 +178,19 @@
     lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
   }
 
+  /* ---------- Кнопки в карточках объектов: подставить тип ---------- */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-pick]');
+    if (!a) return;
+    var k = a.getAttribute('data-pick');
+    var calcBtn = document.querySelector('#calc-form button[data-group="type"][data-value="' + k + '"]');
+    if (calcBtn) calcBtn.click();
+    var map = { flat: 'Квартира', house: 'Дом', office: 'Коммерческое' };
+    var r = document.querySelector('#lead-form input[name="type"][value="' + map[k] + '"]');
+    if (r) r.checked = true;
+    goal(a.getAttribute('href') === '#contact' ? 'card_to_form' : 'card_to_calc');
+  });
+
   /* ---------- Карусели фото ---------- */
   document.querySelectorAll('.carousel').forEach(function (c) {
     var track = c.querySelector('.works__grid');

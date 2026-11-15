@@ -118,9 +118,12 @@ p{margin:0}
 .hero__actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .bento{width:100%;display:flex;flex-wrap:wrap;gap:var(--gap);align-items:stretch}
 .bento__stages{flex:2 1 420px;padding:26px;display:flex;flex-direction:column;gap:18px}
-.bento__stat{flex:1 1 200px;padding:24px;display:flex;flex-direction:column;gap:6px}
+.bento__stat{flex:1 1 220px;padding:24px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.bento__stat::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(217,139,58,.22),rgba(217,139,58,0) 70%);pointer-events:none}
+.stat__icon{width:48px;height:48px;border-radius:14px;background:var(--amber-soft);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
 .stat__label{font-size:14px;color:var(--muted-2)}
-.stat__value{font-family:var(--font-head);font-weight:800;font-size:48px;line-height:1}
+.stat__value{font-family:var(--font-head);font-weight:800;font-size:48px;line-height:1;color:var(--amber);letter-spacing:-0.02em}
+.stat__value small{font-size:22px;color:var(--text);font-weight:700;letter-spacing:0;margin-left:4px}
 .stat__note{font-size:14px;color:var(--text-2)}
 .stages__head{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted-2)}
 .stages__head span:last-child{color:var(--sand);font-size:13px}
@@ -139,6 +142,8 @@ p{margin:0}
 .tag{font-size:12px;padding:6px 10px;border-radius:8px;background:var(--amber);color:var(--amber-ink);font-weight:600}
 .card__title{font-size:24px}
 .card__text{color:var(--muted)}
+.card__actions{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+.card__actions .btn{flex:1 1 auto}
 .card__price{margin-top:auto;font-family:var(--font-head);font-weight:700;font-size:22px}
 .card__price span{color:var(--sand)}
 
