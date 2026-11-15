@@ -11,7 +11,7 @@ blog/index.html                 список статей (собирается 
 blog/<адрес>/index.html         статьи
 privacy/index.html              политика обработки персональных данных
 404.html                        страница «не найдено»
-api/lead.php                    приём заявок → Telegram (+ копия в api/data/leads.csv)
+api/lead.php                    приём заявок → Telegram и MAX (+ копия в api/data/leads.csv)
 assets/css/style.css            все стили, шрифты Inter и Manrope лежат локально
 assets/js/main.js               кабель между плитками, калькулятор, форма, Метрика
 tools/build.py                  пересобирает список статей и sitemap.xml
@@ -33,6 +33,8 @@ tools/build.py                  пересобирает список стате
 | `TG_BOT_TOKEN` | токен Telegram-бота от @BotFather |
 | `TG_CHAT_ID` | ваш chat id (бот @userinfobot покажет его) |
 | `MAIL_TO` | необязательно: почта для копии заявок |
+| `MAX_BOT_TOKEN` | необязательно: токен бота MAX (business.max.ru → бот → настройки) |
+| `MAX_USER_ID` | ваш ID в MAX — показывает Actions → «MAX: узнать мой ID» |
 
 3. Открыть вкладку **Actions** → «Deploy to Reg.ru» → **Run workflow**. Через минуту сайт на хостинге.
 

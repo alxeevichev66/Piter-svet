@@ -2,4 +2,4 @@
 <FilesMatch "^(config\.php|config\.example\.php)$">
   Require all denied
 </FilesMatch>
-RedirectMatch 403 ^/api/data/
+RedirectMatch 403 ^/api/(data|certs)/

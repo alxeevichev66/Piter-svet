@@ -26,6 +26,8 @@ $config = is_file($configFile) ? require $configFile : [];
 $tgToken = (string)($config['telegram_token'] ?? '');
 $tgChat  = (string)($config['telegram_chat_id'] ?? '');
 $mailTo  = (string)($config['mail_to'] ?? '');
+$maxToken = (string)($config['max_token'] ?? '');
+$maxUser  = (string)($config['max_user_id'] ?? '');
 
 $dataDir = __DIR__ . '/data';
 if (!is_dir($dataDir)) {
@@ -102,22 +104,49 @@ $text = implode("\n", $lines);
 
 $sent = false;
 
+/* --- HTTP POST (curl, с запасным вариантом без curl) --- */
+function http_post(string $url, string $body, array $headers, string $caFile = ''): array {
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        $opts = [CURLOPT_POST => true, CURLOPT_POSTFIELDS => $body, CURLOPT_RETURNTRANSFER => true,
+                 CURLOPT_TIMEOUT => 10, CURLOPT_HTTPHEADER => $headers];
+        if ($caFile !== '' && is_file($caFile)) $opts[CURLOPT_CAINFO] = $caFile;
+        curl_setopt_array($ch, $opts);
+        $res = curl_exec($ch);
+        $code = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $err = curl_error($ch);
+        curl_close($ch);
+        return [$code, is_string($res) ? $res : '', $err];
+    }
+    $ssl = ($caFile !== '' && is_file($caFile)) ? ['cafile' => $caFile] : [];
+    $ctx = stream_context_create(['http' => ['method' => 'POST', 'header' => implode("\r\n", $headers), 'content' => $body, 'timeout' => 10, 'ignore_errors' => true], 'ssl' => $ssl]);
+    $res = @file_get_contents($url, false, $ctx);
+    $code = 0;
+    foreach ($http_response_header ?? [] as $h) if (preg_match('#^HTTP/\S+\s+(\d{3})#', $h, $m)) $code = (int)$m[1];
+    return [$code, $res === false ? '' : $res, $res === false ? 'request failed' : ''];
+}
+
 /* --- Telegram --- */
 if ($tgToken !== '' && $tgChat !== '') {
     $payload = http_build_query(['chat_id' => $tgChat, 'text' => $text, 'disable_web_page_preview' => 'true']);
-    $url = 'https://api.telegram.org/bot' . $tgToken . '/sendMessage';
-    if (function_exists('curl_init')) {
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => $payload, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10]);
-        $res = curl_exec($ch);
-        $code = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-    } else {
-        $ctx = stream_context_create(['http' => ['method' => 'POST', 'header' => "Content-Type: application/x-www-form-urlencoded\r\n", 'content' => $payload, 'timeout' => 10]]);
-        $res = @file_get_contents($url, false, $ctx);
-        $code = $res === false ? 0 : 200;
+    [$code, $res] = http_post('https://api.telegram.org/bot' . $tgToken . '/sendMessage', $payload, ['Content-Type: application/x-www-form-urlencoded']);
+    $sent = ($code === 200 && str_contains($res, '"ok":true')) || $sent;
+}
+
+/* --- MAX --- */
+if ($maxToken !== '' && $maxUser !== '') {
+    // Основной домен API — platform-api2.max.ru с сертификатом НУЦ Минцифры (файл certs/cacert.pem кладётся при деплое).
+    // Если он недоступен, пробуем прежний домен.
+    $caFile = __DIR__ . '/certs/cacert.pem';
+    $body = json_encode(['text' => $text, 'notify' => true], JSON_UNESCAPED_UNICODE);
+    $headers = ['Authorization: ' . $maxToken, 'Content-Type: application/json'];
+    $maxOk = false;
+    foreach (['https://platform-api2.max.ru', 'https://platform-api.max.ru'] as $base) {
+        [$code, $res, $err] = http_post($base . '/messages?user_id=' . rawurlencode($maxUser), (string)$body, $headers, $caFile);
+        if ($code === 200) { $maxOk = true; break; }
+        error_log("Piter-Svet lead: MAX $base -> HTTP $code $err " . mb_substr($res, 0, 200));
     }
-    $sent = $code === 200 && is_string($res) && str_contains($res, '"ok":true');
+    $sent = $maxOk || $sent;
 }
 
 /* --- почта (запасной канал) --- */

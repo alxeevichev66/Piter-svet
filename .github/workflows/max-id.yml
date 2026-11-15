@@ -1,0 +1,46 @@
+# Ручной запуск: показывает ваш user_id в MAX.
+# Перед запуском напишите своему боту в MAX любое сообщение.
+name: "MAX: узнать мой ID"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  max-id:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Сертификаты НУЦ Минцифры
+        run: |
+          curl -fsS -m 30 -o /tmp/ru_root.crt https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt
+          curl -fsS -m 30 -o /tmp/ru_sub.crt https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt
+          cat /etc/ssl/certs/ca-certificates.crt /tmp/ru_root.crt /tmp/ru_sub.crt > /tmp/cacert.pem
+
+      - name: Получить последние сообщения боту
+        env:
+          MAX_BOT_TOKEN: ${{ secrets.MAX_BOT_TOKEN }}
+        run: |
+          if [ -z "$MAX_BOT_TOKEN" ]; then echo "::error::Нет секрета MAX_BOT_TOKEN"; exit 1; fi
+          for base in https://platform-api2.max.ru https://platform-api.max.ru; do
+            if curl -fsS -m 30 --cacert /tmp/cacert.pem -H "Authorization: $MAX_BOT_TOKEN" "$base/updates?limit=100&timeout=0" -o /tmp/updates.json; then
+              echo "Ответ получен от $base"; break
+            fi
+          done
+          python3 - <<'PY'
+          import json
+          try:
+              data = json.load(open("/tmp/updates.json"))
+          except Exception:
+              print("::error::MAX не ответил. Проверьте токен бота."); raise SystemExit(1)
+          seen = {}
+          for u in data.get("updates", []):
+              msg = u.get("message") or {}
+              sender = msg.get("sender") or u.get("user") or {}
+              uid = sender.get("user_id")
+              if uid:
+                  seen[uid] = sender.get("name") or sender.get("first_name") or ""
+          if not seen:
+              print("::warning::Сообщений боту не найдено. Напишите боту в MAX любое сообщение и запустите снова.")
+          for uid, name in seen.items():
+              print(f"MAX_USER_ID = {uid}   ({name})")
+              print(f"::notice title=Ваш MAX_USER_ID::{uid} ({name})")
+          PY

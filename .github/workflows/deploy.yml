@@ -25,6 +25,8 @@ jobs:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           MAIL_TO: ${{ secrets.MAIL_TO }}
+          MAX_BOT_TOKEN: ${{ secrets.MAX_BOT_TOKEN }}
+          MAX_USER_ID: ${{ secrets.MAX_USER_ID }}
         run: |
           python3 - <<'PY'
           import os, json
@@ -33,10 +35,20 @@ jobs:
               "telegram_token": os.environ.get("TG_BOT_TOKEN", ""),
               "telegram_chat_id": os.environ.get("TG_CHAT_ID", ""),
               "mail_to": os.environ.get("MAIL_TO", ""),
+              "max_token": os.environ.get("MAX_BOT_TOKEN", ""),
+              "max_user_id": os.environ.get("MAX_USER_ID", ""),
           }
           body = "<?php\nreturn [\n" + "".join(f"    {php(k)} => {php(v)},\n" for k, v in cfg.items()) + "];\n"
           open("api/config.php", "w", encoding="utf-8").write(body)
           PY
+
+      - name: Сертификаты НУЦ Минцифры для API MAX
+        run: |
+          mkdir -p api/certs
+          curl -fsS -m 30 -o /tmp/ru_root.crt https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt \
+            && curl -fsS -m 30 -o /tmp/ru_sub.crt https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt \
+            && cat /etc/ssl/certs/ca-certificates.crt /tmp/ru_root.crt /tmp/ru_sub.crt > api/certs/cacert.pem \
+            || echo "::warning::Не удалось скачать сертификаты Минцифры — отправка в MAX будет пробовать прежний домен"
 
       - name: Выгрузить по FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
