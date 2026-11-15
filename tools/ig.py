@@ -121,3 +121,19 @@ def lead_list(items):
 
 def h3(text):
     return f'        <h3>{text}</h3>\n'
+
+
+def step_table(rows, t=None, heads=('Этап', 'Что делает мастер', 'Что важно вам', 'Как влияет на смету')):
+    """Подробная таблица по этапам: [(этап, мастер, вам, смета)]. На телефоне строки превращаются в карточки."""
+    th = "".join(f'<th>{h}</th>' for h in heads)
+    trs = "\n".join(
+        '              <tr>' + "".join(f'<td data-label="{heads[i]}">{c}</td>' for i, c in enumerate(r)) + '</tr>'
+        for r in rows)
+    return (f'        <div class="ig">\n{title(t)}          <div class="ig-table">\n            <table>\n'
+            f'              <thead><tr>{th}</tr></thead>\n              <tbody>\n{trs}\n              </tbody>\n            </table>\n          </div>\n        </div>\n')
+
+
+def checklist(items, t='Чек-лист'):
+    """Вопросы/пункты для читателя с пустыми квадратиками."""
+    rows = "\n".join(f'            <li><span class="ig-check__box" aria-hidden="true"></span><span>{x}</span></li>' for x in items)
+    return f'        <div class="ig">\n{title(t)}          <ul class="ig-check">\n{rows}\n          </ul>\n        </div>\n'

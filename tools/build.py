@@ -208,7 +208,13 @@ def build_toc_and_checks(posts):
         if new != text:
             f.write_text(new, encoding="utf-8")
         n = len(re.findall(r'class="ig[ -]|class="ig-', art))
-        blocks = len(set(re.findall(r'class="(ig-(?:facts|steps|cards|compare|flow|bars|callout|summary))', art)))
+        blocks = len(set(re.findall(r'class="(ig-(?:facts|steps|cards|compare|flow|bars|callout|summary|table|check|faq))', art)))
+        _txt = " ".join(re.sub(r"<[^>]+>", " ", x) for x in re.findall(r"<p[^>]*>(.*?)</p>", art, flags=re.S))
+        _sent = [x for x in re.split(r"(?<=[.!?])\s+", _txt) if len(x.split()) > 2]
+        if _sent:
+            _avg = sum(len(x.split()) for x in _sent) / len(_sent)
+            if _avg > 17:
+                print(f"! {p['slug']}: в среднем {_avg:.0f} слов в предложении — по образцу нужно 12–15", file=sys.stderr)
         if "₽" in art:
             print(f"! в статье {p['slug']} есть цена (₽) — в статьях цен быть не должно", file=sys.stderr)
         if blocks < 4:

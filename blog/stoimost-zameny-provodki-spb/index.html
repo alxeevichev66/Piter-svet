@@ -20,7 +20,7 @@
 <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/assets/img/logo-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/css/style.css?v=4f66a26f">
+<link rel="stylesheet" href="/assets/css/style.css?v=89a3daaa">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -66,6 +66,7 @@
 }
 </script>
 <!-- FAQLD:START — собирается tools/build.py -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Можно ли узнать точную стоимость по телефону?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. По телефону можно назвать только ориентир. Точная сумма зависит от количества точек, стен и состояния сети — это видно на осмотре."}}, {"@type": "Question", "name": "Можно ли считать стоимость по количеству точек?", "acceptedAnswer": {"@type": "Answer", "text": "Да, многие электрики так и считают: розетка, выключатель, вывод под светильник — отдельные позиции. Но для точного расчёта всё равно нужен план."}}, {"@type": "Question", "name": "Почему замена в частном доме обычно дороже?", "acceptedAnswer": {"@type": "Answer", "text": "В доме длиннее трассы и больше линий: ввод, улица, гараж, насосы, освещение участка. Поэтому дом считают по своему проекту."}}, {"@type": "Question", "name": "Материалы входят в смету?", "acceptedAnswer": {"@type": "Answer", "text": "Да, но отдельной строкой от работы — чтобы вы видели, сколько стоит каждая часть. Кто закупает материалы, договариваемся на выезде."}}]}</script>
 <!-- FAQLD:END -->
 </head>
 <body>
@@ -93,28 +94,66 @@
       <article class="tile article" data-tile>
         <a class="article__section" href="/blog/#zamena-provodki">Замена проводки</a>
         <h1>Сколько стоит замена проводки в квартире в Санкт-Петербурге</h1>
-        <p class="article__meta"><time datetime="2026-11-15">15 ноября 2026</time> · 3 минуты чтения</p>
+        <p class="article__meta"><time datetime="2026-11-15">15 ноября 2026</time> · 6 минут чтения</p>
 <!-- TOC:START — собирается tools/build.py -->
         <nav class="toc" aria-label="Содержание">
           <div class="toc__title">Содержание</div>
           <ol>
+            <li><a href="#chto-na-samom-dele-hochet-uznat-zakazchik">Что на самом деле хочет узнать заказчик</a></li>
+            <li><a href="#iz-chego-skladyvaetsya-cena-zameny-provodki">Из чего складывается цена замены проводки</a></li>
             <li><a href="#kak-my-schitaem-stoimost">Как мы считаем стоимость</a></li>
-            <li><a href="#chto-vhodit-v-polnuyu-zamenu">Что входит в полную замену</a></li>
-            <li><a href="#5-faktorov-kotorye-silnee-vsego-menyayut-cenu">5 факторов, которые сильнее всего меняют цену</a></li>
+            <li><a href="#chto-vliyaet-na-itogovuyu-stoimost">Что влияет на итоговую стоимость</a></li>
+            <li><a href="#kak-etapy-rabot-vliyayut-na-smetu">Как этапы работ влияют на смету</a></li>
+            <li><a href="#pochemu-opasno-ekonomit-na-provodke">Почему опасно экономить на проводке</a></li>
             <li><a href="#kak-ne-pereplatit">Как не переплатить</a></li>
+            <li><a href="#chastye-voprosy">Частые вопросы</a></li>
           </ol>
         </nav>
 <!-- TOC:END -->
-        <p>Сколько стоит замена проводки в квартире — первый вопрос, который нам задают. Честный ответ: точную сумму можно назвать только после осмотра. Ниже — из чего складывается цена, что сильнее всего её меняет и как заранее прикинуть бюджет.</p>
+        <p><strong>Сколько стоит замена проводки в квартире</strong> — вопрос, с которого начинается почти каждый разговор с клиентом. Проводку не видно после ремонта, поэтому на ней часто хочется сэкономить. Но именно от неё зависят безопасность квартиры и то, будет ли нормально работать вся техника.</p>
+        <p>Мы, электрики «Питер-Света», не будем называть одну «волшебную» сумму: честную цену можно посчитать только на объекте. Зато покажем, из чего складывается смета, что сильнее всего меняет итог и какие вопросы задать мастеру, чтобы не переплатить.</p>
         <div class="ig">
           <p class="ig__title">Главное за 10 секунд</p>
           <div class="ig-facts">
             <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plan"/></svg><span class="ig-fact__value">по смете</span><span class="ig-fact__label">точная цена после выезда и проекта</span></div>
             <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plug"/></svg><span class="ig-fact__value">точки</span><span class="ig-fact__label">главный фактор: розетки, свет, выключатели</span></div>
             <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#wall"/></svg><span class="ig-fact__value">стены</span><span class="ig-fact__label">бетон штробить дольше, чем кирпич</span></div>
-            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#tool"/></svg><span class="ig-fact__value">объём</span><span class="ig-fact__label">черновой или вместе с чистовым</span></div>
+            <div class="ig-fact"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#tool"/></svg><span class="ig-fact__value">работа + материалы</span><span class="ig-fact__label">две разные строки сметы</span></div>
           </div>
         </div>
+        <h2 id="chto-na-samom-dele-hochet-uznat-zakazchik">Что на самом деле хочет узнать заказчик</h2>
+        <p>Когда человек ищет, сколько стоит провести проводку, он обычно уже понимает, что без электрика не обойтись. Его беспокоит другое:</p>
+        <div class="ig">
+          <div class="ig-cards">
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#rub"/></svg></span><div><div class="ig-card__title">Откуда берутся цифры</div><div class="ig-card__text">Почему у разных мастеров суммы отличаются в разы</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#warn"/></svg></span><div><div class="ig-card__title">Не переплатить за «невидимое»</div><div class="ig-card__text">Кабель уйдёт в стену — как проверить, за что платишь</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#tool"/></svg></span><div><div class="ig-card__title">Работа или материалы</div><div class="ig-card__text">Что входит в цену мастера, а что покупается отдельно</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg></span><div><div class="ig-card__title">Как сравнить предложения</div><div class="ig-card__text">По каким параметрам смотреть сметы честно</div></div></div>
+          </div>
+        </div>
+        <p>Ниже разбираем каждый из этих вопросов по порядку.</p>
+        <h2 id="iz-chego-skladyvaetsya-cena-zameny-provodki">Из чего складывается цена замены проводки</h2>
+        <p>В любой честной смете есть две части. Их важно не путать, когда сравниваете предложения разных мастеров:</p>
+        <div class="ig">
+          <div class="ig-compare">
+            <div class="ig-col ig-col--bad"><div class="ig-col__head"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg>Работа электрика</div><ul>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Проект и разметка</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Штробление и сверление</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Прокладка кабеля</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Сборка щита</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Подключение точек и проверка</span></li>
+              </ul></div>
+            <div class="ig-col ig-col--good"><div class="ig-col__head"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg>Материалы</div><ul>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Кабель нужного сечения</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Автоматы, УЗО, дифавтоматы</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Щит и шины</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Подрозетники, коробки, гофра</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Розетки и выключатели</span></li>
+              </ul></div>
+          </div>
+        </div>
+        <div class="ig-callout ig-callout--tip"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bulb"/></svg><div>Если в одной смете цена «за всё», а в другой — только работа, сравнивать их напрямую нельзя. Попросите у каждого мастера разбивку: отдельно работа, отдельно материалы.</div></div>
+        <p>Многие электрики считают работу по точкам: каждая розетка, выключатель или вывод под светильник — отдельная позиция. Кабель считают по метрам трассы. Поэтому чем больше точек и длиннее трассы, тем выше итог.</p>
         <h2 id="kak-my-schitaem-stoimost">Как мы считаем стоимость</h2>
         <div class="ig">
           <p class="ig__title">От заявки до цены</p>
@@ -131,33 +170,66 @@
           </div>
         </div>
         <div class="ig-callout ig-callout--tip"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#bulb"/></svg><div>Прикинуть бюджет до выезда мастера можно в <a href="/#calc">калькуляторе на главной</a> — он учитывает площадь, тип объекта и объём работ.</div></div>
-        <h2 id="chto-vhodit-v-polnuyu-zamenu">Что входит в полную замену</h2>
+        <h2 id="chto-vliyaet-na-itogovuyu-stoimost">Что влияет на итоговую стоимость</h2>
+        <h3>1. Площадь и планировка</h3>
+        <p>Чем больше квартира и сложнее планировка, тем длиннее кабельные трассы, больше линий и больше штроб. Студия и большая трёхкомнатная — это разный объём работы даже при одинаковых требованиях.</p>
+        <h3>2. Количество точек и сценарии света</h3>
+        <p>Минимум — несколько розеток и одна люстра в комнате. Но обычно нужно больше:</p>
+        <ul class="lead-list">
+          <li><strong>Отдельные линии на технику</strong> — духовка, варочная панель, посудомойка, стиральная машина.</li>
+          <li><strong>Розетки по периметру</strong> — у кровати, у рабочего стола, на кухонном фартуке.</li>
+          <li><strong>Несколько сценариев освещения</strong> — основной свет, подсветка, светильники с разных выключателей.</li>
+          <li><strong>Выводы под оборудование</strong> — кондиционеры, тёплые полы, сигнализацию.</li>
+        </ul>
+        <h3>3. Материал стен и способ монтажа</h3>
         <div class="ig">
-          <p class="ig__title">Весь путь — одной бригадой</p>
-          <div class="ig-flow">
-            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plan"/></svg><span class="ig-node__title">Проект</span><span class="ig-node__text">план точек и линий</span></div>
-            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
-            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#panel"/></svg><span class="ig-node__title">Щит</span><span class="ig-node__text">автоматы, УЗО</span></div>
-            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
-            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#drill"/></svg><span class="ig-node__title">Штробы</span><span class="ig-node__text">по трассам</span></div>
-            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
-            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cable"/></svg><span class="ig-node__title">Кабель</span><span class="ig-node__text">медь, отдельные линии</span></div>
-            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
-            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plug"/></svg><span class="ig-node__title">Точки</span><span class="ig-node__text">коробки, розетки</span></div>
-            <span class="ig-flow__arrow"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#arrow"/></svg></span>
-            <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span class="ig-node__title">Проверка</span><span class="ig-node__text">каждая линия</span></div>
+          <p class="ig__title">Как прокладывают кабель</p>
+          <div class="ig-cards">
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#wall"/></svg></span><div><div class="ig-card__title">В штробах под штукатурку</div><div class="ig-card__text">Аккуратно, но дольше — особенно в бетоне</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cable"/></svg></span><div><div class="ig-card__title">В гофре по потолку</div><div class="ig-card__text">Часто в новостройках под натяжной потолок</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plan"/></svg></span><div><div class="ig-card__title">По гипсокартону</div><div class="ig-card__text">Без штроб, внутри перегородок</div></div></div>
+            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#panel"/></svg></span><div><div class="ig-card__title">Открыто в коробах</div><div class="ig-card__text">Для технических помещений</div></div></div>
           </div>
         </div>
-        <p>Подробно про этапы — в статье <a href="/blog/zamena-provodki-v-kvartire/">«Замена проводки в квартире: этапы, сроки и цена»</a>.</p>
-        <h2 id="5-faktorov-kotorye-silnee-vsego-menyayut-cenu">5 факторов, которые сильнее всего меняют цену</h2>
+        <h3>4. Щит и защита</h3>
+        <p>Чем больше линий и защитных устройств, тем дороже щит. Зато каждая линия защищена отдельно, а неисправность сразу видно по автомату. Как устроен правильный щит — в статье <a href="/blog/sborka-elektroshchita-v-kvartire/">«Сборка электрощита в квартире»</a>.</p>
+        <h3>5. Состояние квартиры</h3>
+        <p>В пустой квартире «под ремонт» работать быстрее. Если в квартире живут, есть мебель и отделка, нужно больше времени на защиту поверхностей и уборку.</p>
+        <h2 id="kak-etapy-rabot-vliyayut-na-smetu">Как этапы работ влияют на смету</h2>
+        <p>Чтобы было понятно, за что вы платите, разложим работу по этапам — что делает мастер, на что смотреть вам и как этап отражается в смете:</p>
         <div class="ig">
-          <p class="ig__title">Почему у соседа вышло по-другому</p>
-          <div class="ig-cards">
-            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#plug"/></svg></span><div><div class="ig-card__title">Количество точек</div><div class="ig-card__text">Кухня с 15 розетками, тёплые полы, подсветка — больше кабеля и работы.</div></div></div>
-            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#wall"/></svg></span><div><div class="ig-card__title">Материал стен</div><div class="ig-card__text">Бетон панельного дома штробить дольше, чем кирпич; по гипсокартону — без штроб.</div></div></div>
-            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#tool"/></svg></span><div><div class="ig-card__title">Объём работ</div><div class="ig-card__text">Только черновой монтаж или вместе с чистовой установкой.</div></div></div>
-            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#panel"/></svg></span><div><div class="ig-card__title">Щит</div><div class="ig-card__text">Больше линий и защит — дороже щит, но безопаснее и удобнее.</div></div></div>
-            <div class="ig-card"><span class="ig-card__icon"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#home"/></svg></span><div><div class="ig-card__title">Состояние квартиры</div><div class="ig-card__text">С мебелью и отделкой работать дольше, чем в пустой «под ремонт».</div></div></div>
+          <div class="ig-table">
+            <table>
+              <thead><tr><th>Этап</th><th>Что делает мастер</th><th>Что важно вам</th><th>Как влияет на смету</th></tr></thead>
+              <tbody>
+              <tr><td data-label="Этап">Выезд и осмотр</td><td data-label="Что делает мастер">Проверяет старую сеть и щит, обсуждает с вами технику и свет</td><td data-label="Что важно вам">Рассказать о всей технике и планах на ремонт</td><td data-label="Как влияет на смету">Основа для сметы</td></tr>
+              <tr><td data-label="Этап">Проект</td><td data-label="Что делает мастер">Составляет план линий, групп, точек и щита</td><td data-label="Что важно вам">Чтобы учтены были все розетки и свет</td><td data-label="Как влияет на смету">Определяет объём всех работ</td></tr>
+              <tr><td data-label="Этап">Штробление</td><td data-label="Что делает мастер">Делает каналы под кабель и места под коробки</td><td data-label="Что важно вам">Понимать объём «грязных» работ</td><td data-label="Как влияет на смету">Считается по метрам штроб</td></tr>
+              <tr><td data-label="Этап">Прокладка кабеля</td><td data-label="Что делает мастер">Тянет кабель по трассам, фиксирует</td><td data-label="Что важно вам">Спросить тип и сечение кабеля</td><td data-label="Как влияет на смету">Метры кабеля и работы</td></tr>
+              <tr><td data-label="Этап">Коробки и подрозетники</td><td data-label="Что делает мастер">Ставит и готовит к подключению</td><td data-label="Что важно вам">Проверить места точек «по месту»</td><td data-label="Как влияет на смету">Поштучно — много точек</td></tr>
+              <tr><td data-label="Этап">Сборка щита</td><td data-label="Что делает мастер">Ставит автоматы, УЗО, подписывает линии</td><td data-label="Что важно вам">Есть ли запас мест и подписи</td><td data-label="Как влияет на смету">Зависит от числа модулей</td></tr>
+              <tr><td data-label="Этап">Подключение и проверка</td><td data-label="Что делает мастер">Подключает точки, проверяет каждую линию</td><td data-label="Что важно вам">Попросить показать работу защит</td><td data-label="Как влияет на смету">Входит в комплекс работ</td></tr>
+              <tr><td data-label="Этап">Сдача</td><td data-label="Что делает мастер">Передаёт схему щита, объясняет группы</td><td data-label="Что важно вам">Сохранить схему и контакты</td><td data-label="Как влияет на смету">Без отдельной доплаты</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <h2 id="pochemu-opasno-ekonomit-na-provodke">Почему опасно экономить на проводке</h2>
+        <p>Электрика — тот участок ремонта, где ошибка оборачивается не неудобством, а аварией. Неправильное сечение кабеля, отсутствие УЗО, перегруженные розеточные группы и плохие соединения — всё это прямой путь к перегреву и короткому замыканию.</p>
+        <div class="ig">
+          <div class="ig-compare">
+            <div class="ig-col ig-col--bad"><div class="ig-col__head"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg>Попытка сэкономить</div><ul>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Переделки и двойная оплата</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Скрытые дефекты, которые проявятся через годы</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Выбивает автоматы при включении техники</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#cross"/></svg><span>Риск перегрева и пожара</span></li>
+              </ul></div>
+            <div class="ig-col ig-col--good"><div class="ig-col__head"><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg>Работа специалиста</div><ul>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Расчёт нагрузок и правильное сечение</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Защита на каждой линии</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Аккуратные трассы по правилам</span></li>
+                <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Схема щита и гарантия</span></li>
+              </ul></div>
           </div>
         </div>
         <h2 id="kak-ne-pereplatit">Как не переплатить</h2>
@@ -177,12 +249,33 @@
               </ul></div>
           </div>
         </div>
+        <div class="ig">
+          <p class="ig__title">Вопросы электрику перед заказом</p>
+          <ul class="ig-check">
+            <li><span class="ig-check__box" aria-hidden="true"></span><span>Сколько стоит отдельно работа и отдельно материалы?</span></li>
+            <li><span class="ig-check__box" aria-hidden="true"></span><span>Как считаете — за м², по точкам или по метрам?</span></li>
+            <li><span class="ig-check__box" aria-hidden="true"></span><span>Какой кабель, автоматы и УЗО планируете ставить?</span></li>
+            <li><span class="ig-check__box" aria-hidden="true"></span><span>Входит ли в цену сборка щита?</span></li>
+            <li><span class="ig-check__box" aria-hidden="true"></span><span>Как рассчитываете нагрузку и число линий?</span></li>
+            <li><span class="ig-check__box" aria-hidden="true"></span><span>Какую гарантию даёте на работу?</span></li>
+          </ul>
+        </div>
+        <p>Ответы на эти вопросы помогут сравнить предложения честно. Подробно про сами этапы — в статье <a href="/blog/zamena-provodki-v-kvartire/">«Замена проводки в квартире: этапы, сроки и цена»</a>.</p>
+        <h2 id="chastye-voprosy">Частые вопросы</h2>
+        <div class="ig-faq">
+          <details class="ig-faq__item"><summary>Можно ли узнать точную стоимость по телефону?</summary><div class="ig-faq__a">Нет. По телефону можно назвать только ориентир. Точная сумма зависит от количества точек, стен и состояния сети — это видно на осмотре.</div></details>
+          <details class="ig-faq__item"><summary>Можно ли считать стоимость по количеству точек?</summary><div class="ig-faq__a">Да, многие электрики так и считают: розетка, выключатель, вывод под светильник — отдельные позиции. Но для точного расчёта всё равно нужен план.</div></details>
+          <details class="ig-faq__item"><summary>Почему замена в частном доме обычно дороже?</summary><div class="ig-faq__a">В доме длиннее трассы и больше линий: ввод, улица, гараж, насосы, освещение участка. Поэтому дом считают по своему проекту.</div></details>
+          <details class="ig-faq__item"><summary>Материалы входят в смету?</summary><div class="ig-faq__a">Да, но отдельной строкой от работы — чтобы вы видели, сколько стоит каждая часть. Кто закупает материалы, договариваемся на выезде.</div></details>
+        </div>
         <h2 id="korotko">Коротко</h2>
         <ul class="ig-summary">
-          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Точная стоимость — по смете после выезда мастера и проекта.</span></li>
-          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Цену сильнее всего меняют количество точек, материал стен и объём работ.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Цена — это работа плюс материалы: сравнивайте сметы по позициям.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Сильнее всего итог меняют количество точек, стены и объём работ.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Точная стоимость — только по смете после выезда мастера.</span></li>
           <li><svg class="ico" aria-hidden="true"><use href="/assets/img/icons.svg#check"/></svg><span>Прикинуть бюджет заранее можно в калькуляторе на главной.</span></li>
         </ul>
+        <p><strong>Хотите знать точную стоимость для своей квартиры?</strong> Оставьте заявку — мастер приедет, осмотрит объект и распишет смету по позициям.</p>
       </article>
 
 <!-- NAV:START — собирается tools/build.py -->

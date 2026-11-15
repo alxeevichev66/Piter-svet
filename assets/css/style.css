@@ -417,3 +417,20 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
 .lead-list{list-style:none;padding:0}
 .lead-list li{position:relative;padding-left:20px}
 .lead-list li::before{content:'';position:absolute;left:2px;top:.7em;width:7px;height:7px;border-radius:50%;background:var(--amber)}
+/* подробная таблица этапов и чек-лист */
+.ig-table{border-radius:18px;overflow:hidden;background:rgba(10,16,15,.32)}
+.ig-table table{width:100%;border-collapse:collapse;margin:0;font-size:14.5px}
+.ig-table th{text-align:left;padding:12px 14px;color:var(--amber);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;background:rgba(217,139,58,.08)}
+.ig-table td{padding:12px 14px;border-top:1px solid rgba(255,255,255,.07);color:#C9CDD1;vertical-align:top;line-height:1.45}
+.ig-table td:first-child{color:var(--text);font-weight:600}
+.ig-check{list-style:none;margin:0;padding:16px 18px;border-radius:18px;background:rgba(10,16,15,.32);display:grid;gap:10px}
+.ig-check li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;color:var(--text);line-height:1.45;margin:0}
+.ig-check__box{flex:none;width:20px;height:20px;border-radius:6px;border:2px solid var(--amber);margin-top:1px}
+@media (max-width:760px){
+  .ig-table thead{display:none}
+  .ig-table tr{display:block;padding:12px 14px;border-top:1px solid rgba(255,255,255,.08)}
+  .ig-table tr:first-child{border-top:0}
+  .ig-table td{display:block;border:0;padding:3px 0}
+  .ig-table td:first-child{font-family:var(--font-head);font-size:17px;padding-bottom:6px}
+  .ig-table td:not(:first-child)::before{content:attr(data-label)": ";color:var(--amber);font-weight:600}
+}
