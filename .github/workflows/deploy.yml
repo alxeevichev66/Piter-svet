@@ -45,10 +45,7 @@ jobs:
       - name: Сертификаты НУЦ Минцифры для API MAX
         run: |
           mkdir -p api/certs
-          curl -fsS -m 30 -o /tmp/ru_root.crt https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt \
-            && curl -fsS -m 30 -o /tmp/ru_sub.crt https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt \
-            && cat /etc/ssl/certs/ca-certificates.crt /tmp/ru_root.crt /tmp/ru_sub.crt > api/certs/cacert.pem \
-            || echo "::warning::Не удалось скачать сертификаты Минцифры — отправка в MAX будет пробовать прежний домен"
+          bash tools/ru-ca.sh api/certs/cacert.pem || echo "::warning::Не удалось собрать сертификаты Минцифры — отправка в MAX будет пробовать прежний домен"
 
       - name: Выгрузить по FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

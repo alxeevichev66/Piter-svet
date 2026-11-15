@@ -9,11 +9,11 @@ jobs:
   max-id:
     runs-on: ubuntu-latest
     steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+
       - name: Сертификаты НУЦ Минцифры
-        run: |
-          curl -fsS -m 30 -o /tmp/ru_root.crt https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt
-          curl -fsS -m 30 -o /tmp/ru_sub.crt https://gu-st.ru/content/lending/russian_trusted_sub_ca_pem.crt
-          cat /etc/ssl/certs/ca-certificates.crt /tmp/ru_root.crt /tmp/ru_sub.crt > /tmp/cacert.pem
+        run: bash tools/ru-ca.sh /tmp/cacert.pem
 
       - name: Получить последние сообщения боту
         env:
@@ -21,9 +21,10 @@ jobs:
         run: |
           if [ -z "$MAX_BOT_TOKEN" ]; then echo "::error::Нет секрета MAX_BOT_TOKEN"; exit 1; fi
           for base in https://platform-api2.max.ru https://platform-api.max.ru; do
-            if curl -fsS -m 30 --cacert /tmp/cacert.pem -H "Authorization: $MAX_BOT_TOKEN" "$base/updates?limit=100&timeout=0" -o /tmp/updates.json; then
-              echo "Ответ получен от $base"; break
-            fi
+            code=$(curl -sS -m 30 --cacert /tmp/cacert.pem -H "Authorization: $MAX_BOT_TOKEN" "$base/updates?limit=100&timeout=0" -o /tmp/updates.json -w "%{http_code}" || echo 000)
+            echo "$base → HTTP $code"
+            if [ "$code" = "200" ]; then break; fi
+            head -c 300 /tmp/updates.json 2>/dev/null; echo
           done
           python3 - <<'PY'
           import json
