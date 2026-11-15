@@ -1,0 +1,32 @@
+# Ручной запуск: показывает ваш chat id в Telegram.
+# Перед запуском нажмите «Старт» в своём боте или напишите ему сообщение.
+name: "Telegram: узнать мой ID"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tg-id:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Последние сообщения боту
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+        run: |
+          curl -sS -m 20 "https://api.telegram.org/bot$TG_BOT_TOKEN/getUpdates" -o /tmp/u.json
+          python3 - <<'PY'
+          import json
+          d = json.load(open("/tmp/u.json"))
+          if not d.get("ok"):
+              print("::error::Telegram:", d.get("description")); raise SystemExit(1)
+          seen = {}
+          for u in d.get("result", []):
+              m = u.get("message") or u.get("my_chat_member") or {}
+              chat = m.get("chat") or {}
+              if chat.get("id"):
+                  seen[chat["id"]] = chat.get("first_name") or chat.get("title") or ""
+          if not seen:
+              print("::warning::Сообщений боту не найдено. Нажмите «Старт» в боте и запустите снова.")
+          for cid, name in seen.items():
+              print(f"TG_CHAT_ID = {cid}   ({name})")
+          PY
