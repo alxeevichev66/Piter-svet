@@ -221,6 +221,92 @@ def build_toc_and_checks(posts):
             print(f"! мало инфографики в {p['slug']}: {blocks} типов блоков (нужно не меньше 4)", file=sys.stderr)
 
 
+# ---------------------------------------------------------------- общее для всех страниц
+NAV_HTML = ('<nav class="nav" aria-label="Разделы"><a href="/uslugi/">Услуги</a><a href="/#works">Работы</a>'
+            '<a href="/kalkulyator/">Калькулятор</a><a href="/blog/">Статьи</a><a href="/#contact">Контакты</a></nav>')
+FOOT_HTML = ('<nav aria-label="Нижнее меню"><a href="/uslugi/">Услуги</a><a href="/kalkulyator/">Цены</a><a href="/blog/">Статьи</a>'
+             '<a href="/privacy/">Конфиденциальность</a><a href="tel:+79601604425">+7 960 160-44-25</a></nav>')
+LOGO_OLD = '<img class="logo__img" src="/assets/img/logo-96.webp" alt=""'
+LOGO_NEW = '<img class="logo__img" src="/assets/img/logo-96.webp" alt="Питер-Свет"'
+
+
+def build_chrome():
+    """Одинаковое меню, подвал и alt логотипа на всех страницах."""
+    n = 0
+    for f in ROOT.rglob("*.html"):
+        if any(part.startswith(".") for part in f.relative_to(ROOT).parts) or f.relative_to(ROOT).parts[0] in {"tools", "node_modules"}:
+            continue
+        text = f.read_text(encoding="utf-8")
+        new = re.sub(r'<nav class="nav" aria-label="Разделы">.*?</nav>', NAV_HTML, text, count=1, flags=re.S)
+        new = re.sub(r'<nav aria-label="Нижнее меню">.*?</nav>', FOOT_HTML, new, count=1, flags=re.S)
+        new = new.replace(LOGO_OLD, LOGO_NEW)
+        if new != text:
+            f.write_text(new, encoding="utf-8"); n += 1
+    print(f"меню и подвал обновлены в файлах: {n}")
+
+
+# ---------------------------------------------------------------- автор и ссылка на услугу в статьях
+AUTHOR = {"name": "Алексей Лебедев", "job": "Мастер-электрик, руководитель бригады «Питер-Света»",
+          "photo": "/assets/img/author.webp"}   # фото появится — положить файл, блок подхватит сам
+SERVICE_LINKS = [  # (условие, адрес, название) — первая подходящая строка
+    (lambda p: "hrushch" in p["slug"], "/uslugi/zamena-provodki-v-hrushchevke-spb/", "Замена проводки в хрущевке в СПб"),
+    (lambda p: p["section"] in ("Электрика под ключ", "Щиты и автоматы", "Розетки и выключатели", "Штробление"),
+     "/uslugi/elektrika-pod-klyuch-spb/", "Электрика под ключ в СПб"),
+    (lambda p: True, "/uslugi/zamena-provodki-v-kvartire-spb/", "Замена проводки в квартире в СПб"),
+]
+
+
+def build_author_and_service(posts):
+    import json
+    has_photo = (ROOT / AUTHOR["photo"].lstrip("/")).exists()
+    ava = (f'<img class="author__photo" src="{AUTHOR["photo"]}" alt="{AUTHOR["name"]}" width="56" height="56" loading="lazy">' if has_photo
+           else '<span class="author__photo author__photo--initials" aria-hidden="true">АЛ</span>')
+    for p in posts:
+        f = ROOT / "blog" / p["slug"] / "index.html"
+        text = f.read_text(encoding="utf-8")
+        mod = meta(text, "article:modified")
+        upd = f' · обновлено <time datetime="{mod}">{human_date(mod)}</time>' if mod and mod != p["date"] else ""
+        block = (f'        <div class="author">{ava}<div><b>{AUTHOR["name"]}</b><span>{AUTHOR["job"]}</span>'
+                 + (f'<span>Обновлено <time datetime="{mod}">{human_date(mod)}</time></span>' if upd else '') + '</div></div>')
+        new = text
+        if "<!-- AUTHOR:START" not in new:
+            new = re.sub(r'(<p class="article__meta">.*?</p>\n)', r"\1<!-- AUTHOR:START — собирается tools/build.py -->\n<!-- AUTHOR:END -->\n", new, count=1, flags=re.S)
+        new = replace_block(new, "AUTHOR", block)
+        url, name = next((u, n) for cond, u, n in SERVICE_LINKS if cond(p))
+        svc = (f'        <p class="service-link">{"Услуга по теме"}: <a href="{url}">{name}</a> — этапы, гарантия и расчёт стоимости.</p>')
+        if "<!-- SERVICE:START" not in new:
+            i = new.find("      </article>")
+            new = new[:i] + "<!-- SERVICE:START — собирается tools/build.py -->\n<!-- SERVICE:END -->\n" + new[i:]
+        new = replace_block(new, "SERVICE", svc)
+        person = {"@type": "Person", "name": AUTHOR["name"], "jobTitle": AUTHOR["job"], "worksFor": {"@type": "Organization", "name": "Питер-Свет"}}
+        new = re.sub(r'"author": \{[^{}]*(\{[^{}]*\}[^{}]*)*\}', '"author": ' + json.dumps(person, ensure_ascii=False), new, count=1)
+        if mod:
+            new = re.sub(r'"dateModified": "[^"]*"', f'"dateModified": "{mod}"', new, count=1)
+        if new != text:
+            f.write_text(new, encoding="utf-8")
+
+
+def build_home_faq_ld():
+    """Разметка FAQPage для блока «Частые вопросы» на главной."""
+    import json
+    f = ROOT / "index.html"
+    text = f.read_text(encoding="utf-8")
+    sec = re.search(r'<section class="section" id="faq">.*?</section>', text, re.S).group(0)
+    qa = re.findall(r'<summary>(.*?)</summary>\s*<p[^>]*>(.*?)</p>', sec, re.S)
+    strip = lambda x: html.unescape(re.sub(r"<[^>]+>", "", x)).strip()
+    data = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": strip(q), "acceptedAnswer": {"@type": "Answer", "text": strip(a)}} for q, a in qa]}
+    ld = '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
+    if "<!-- FAQLD:START" not in text:
+        text2 = text.replace("</head>", "<!-- FAQLD:START — собирается tools/build.py -->\n<!-- FAQLD:END -->\n</head>", 1)
+    else:
+        text2 = text
+    new = replace_block(text2, "FAQLD", ld)
+    if new != text:
+        f.write_text(new, encoding="utf-8")
+    print(f"вопросов на главной: {len(qa)}")
+
+
 def build_home_latest(posts):
     f = ROOT / "index.html"
     text = f.read_text(encoding="utf-8")
@@ -241,7 +327,7 @@ def build_sitemap(posts):
             continue
         url_path = "/" if rel.parent == Path(".") else "/" + rel.parent.as_posix() + "/"
         lastmod = meta(text, "article:modified") or meta(text, "article:published") or today
-        prio = "1.0" if url_path == "/" else ("0.8" if url_path.startswith("/blog/") else "0.3")
+        prio = "1.0" if url_path == "/" else ("0.9" if url_path.startswith(("/uslugi/", "/kalkulyator/")) else ("0.8" if url_path.startswith("/blog/") else "0.3"))
         pages.append((url_path, lastmod, prio))
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -286,7 +372,10 @@ if __name__ == "__main__":
     build_blog_index(posts)
     build_article_nav(posts)
     build_toc_and_checks(posts)
+    build_author_and_service(posts)
     build_home_latest(posts)
+    build_home_faq_ld()
+    build_chrome()
     build_sitemap(posts)
     bust_cache()
     check_placeholders()

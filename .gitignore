@@ -2,3 +2,4 @@
 api/config.php
 api/data/
 .DS_Store
+__pycache__/
