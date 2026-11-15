@@ -151,7 +151,7 @@
     if (toForm) toForm.addEventListener('click', function () {
       var names = { flat: 'квартира', house: 'дом', office: 'офис' };
       var area = document.getElementById('lead-area');
-      if (area && !area.value) area.value = state.area + ' м², ' + names[state.type];
+      if (area && !area.value) area.value = String(state.area);
       var calcField = document.getElementById('lead-calc');
       if (calcField) calcField.value = names[state.type] + ', ' + state.area + ' м², ' +
         (state.scope === 'full' ? 'черновой + чистовой' : 'черновой') + ', ≈ ' + fmt(target()) + ' ₽';

@@ -66,7 +66,9 @@ function clean(string $v, int $max): string {
 }
 $name    = clean((string)($_POST['name'] ?? ''), 80);
 $phone   = clean((string)($_POST['phone'] ?? ''), 20);
-$area    = clean((string)($_POST['area'] ?? ''), 120);
+$area    = clean((string)($_POST['area'] ?? ''), 40);
+$district = clean((string)($_POST['district'] ?? ''), 60);
+if ($area !== '' && preg_match('/^\d+([.,]\d+)?$/', $area)) $area .= ' м²';
 $calc    = clean((string)($_POST['calc'] ?? ''), 160);
 $consent = ($_POST['consent'] ?? '') === '1';
 
@@ -87,8 +89,8 @@ $isNew = !is_file($csv);
 if ($fh = @fopen($csv, 'ab')) {
     if (flock($fh, LOCK_EX)) {
         if ($isNew) fwrite($fh, "\xEF\xBB\xBF");
-        if ($isNew) fputcsv($fh, ['дата', 'имя', 'телефон', 'площадь/район', 'калькулятор', 'страница'], ';');
-        fputcsv($fh, [$date, $name, $phonePretty, $area, $calc, $page], ';');
+        if ($isNew) fputcsv($fh, ['дата', 'имя', 'телефон', 'площадь', 'район', 'калькулятор', 'страница'], ';');
+        fputcsv($fh, [$date, $name, $phonePretty, $area, $district, $calc, $page], ';');
         flock($fh, LOCK_UN);
     }
     fclose($fh);
@@ -96,7 +98,8 @@ if ($fh = @fopen($csv, 'ab')) {
 
 /* --- текст уведомления --- */
 $lines = ["⚡ Заявка с сайта Питер-Свет", "Имя: " . ($name ?: '—'), "Телефон: $phonePretty"];
-if ($area !== '') $lines[] = "Объект: $area";
+if ($area !== '') $lines[] = "Площадь: $area";
+if ($district !== '') $lines[] = "Район: $district";
 if ($calc !== '') $lines[] = "Калькулятор: $calc";
 $lines[] = "Время: $date";
 if ($page !== '') $lines[] = "Страница: $page";
