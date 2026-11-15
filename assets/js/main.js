@@ -164,6 +164,20 @@
     });
   }
 
+  /* ---------- Фото работ: просмотр крупно ---------- */
+  var lb = document.getElementById('lightbox');
+  if (lb && lb.showModal) {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.work-photo');
+      if (!b) return;
+      lb.querySelector('img').src = b.getAttribute('data-full');
+      lb.querySelector('img').alt = b.querySelector('img').alt;
+      lb.querySelector('.lightbox__cap').textContent = b.querySelector('img').alt;
+      lb.showModal();
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
+  }
+
   /* ---------- Фильтр статей по разделам ---------- */
   var filter = document.querySelector('.blog-filter');
   if (filter) {

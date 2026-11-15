@@ -300,3 +300,18 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
 .article-nav__list a span{font-size:12px;color:var(--amber)}
 .article-nav__buttons{display:flex;gap:10px;flex-wrap:wrap}
 @media (max-width:760px){.choice__row{gap:8px}.choice__item span{padding:0 12px;font-size:14px}.article-nav{padding:22px 18px}.article-nav__buttons .btn{flex:1 1 100%}}
+
+/* ----- наши работы ----- */
+.works{padding:28px;display:flex;flex-direction:column;gap:20px}
+.works__title{font-size:20px;margin:6px 0 0}
+.works__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.works__grid li{display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted-2)}
+.work-photo{padding:0;border:0;background:none;cursor:zoom-in;border-radius:16px;overflow:hidden;display:block}
+.work-photo img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .3s}
+.work-photo:hover img{transform:scale(1.04)}
+.lightbox{max-width:min(92vw,900px);max-height:92vh;padding:0;border:0;border-radius:20px;background:#0E1312;color:var(--text)}
+.lightbox::backdrop{background:rgba(0,0,0,.8)}
+.lightbox img{display:block;max-width:100%;max-height:82vh;margin:0 auto}
+.lightbox__cap{padding:12px 18px;font-size:14px;color:var(--muted)}
+.lightbox__close{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:26px;cursor:pointer}
+@media (max-width:760px){.works{padding:20px}.works__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
