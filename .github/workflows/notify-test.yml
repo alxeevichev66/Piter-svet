@@ -1,0 +1,36 @@
+# Ручной запуск: отправляет тестовое сообщение в Telegram и MAX с теми же секретами, что использует сайт.
+name: "Проверить уведомления"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+
+      - name: Сертификаты НУЦ Минцифры
+        run: bash tools/ru-ca.sh /tmp/cacert.pem
+
+      - name: Telegram
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: |
+          if [ -z "$TG_BOT_TOKEN" ] || [ -z "$TG_CHAT_ID" ]; then echo "::error::Нет секрета TG_BOT_TOKEN или TG_CHAT_ID"; exit 0; fi
+          echo "Длина TG_CHAT_ID: ${#TG_CHAT_ID}, похоже на число: $([[ "$TG_CHAT_ID" =~ ^-?[0-9]+$ ]] && echo да || echo НЕТ)"
+          echo "--- getMe:"; curl -sS -m 20 "https://api.telegram.org/bot$TG_BOT_TOKEN/getMe" | python3 -c "import sys,json; d=json.load(sys.stdin); print('ok' if d.get('ok') else d, d.get('result',{}).get('username',''))"
+          echo "--- sendMessage:"; curl -sS -m 20 "https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage" --data-urlencode "chat_id=$TG_CHAT_ID" --data-urlencode "text=✅ Тест уведомлений сайта Питер-Свет" | python3 -c "import sys,json; d=json.load(sys.stdin); print('ОТПРАВЛЕНО' if d.get('ok') else 'ОШИБКА: %s' % d.get('description'))"
+
+      - name: MAX
+        env:
+          MAX_BOT_TOKEN: ${{ secrets.MAX_BOT_TOKEN }}
+          MAX_USER_ID: ${{ secrets.MAX_USER_ID }}
+        run: |
+          if [ -z "$MAX_BOT_TOKEN" ] || [ -z "$MAX_USER_ID" ]; then echo "::error::Нет секрета MAX_BOT_TOKEN или MAX_USER_ID"; exit 0; fi
+          code=$(curl -sS -m 30 --cacert /tmp/cacert.pem -X POST "https://platform-api2.max.ru/messages?user_id=$MAX_USER_ID" \
+            -H "Authorization: $MAX_BOT_TOKEN" -H "Content-Type: application/json" \
+            -d '{"text":"✅ Тест уведомлений сайта Питер-Свет"}' -o /tmp/max.json -w "%{http_code}")
+          echo "MAX → HTTP $code"; [ "$code" = "200" ] && echo "ОТПРАВЛЕНО" || head -c 300 /tmp/max.json
