@@ -279,6 +279,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
   .article h2{font-size:24px}
   .header__cta .btn{display:none}
 }
+@media (max-width:520px){.hero__actions{flex-direction:column;width:100%;gap:10px}.hero__actions .btn{width:100%;min-height:48px}}
 @media (max-width:420px){.header{flex-wrap:nowrap;gap:10px}.logo{gap:8px}.logo__name span{display:none}.logo__name{font-size:21px}.logo__img{width:46px;height:46px}.header .phone{font-size:14px}}
 @media (max-width:760px){.tile{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
