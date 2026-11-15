@@ -35,13 +35,18 @@ def main():
     try:
         uid = get(f"{WM}/user")["user_id"]
         hosts = get(f"{WM}/user/{uid}/hosts")["hosts"]
-        host = next((h for h in hosts if HOST_PART in h["host_id"] and h["host_id"].startswith("https")), None) \
-            or next((h for h in hosts if HOST_PART in h["host_id"]), None)
+        cands = sorted([h for h in hosts if HOST_PART in h["host_id"]], key=lambda h: not h["host_id"].startswith("https"))
+        host, s, notes = None, None, []
+        for h in cands:
+            try:
+                s = get(f"{WM}/user/{uid}/hosts/{urllib.parse.quote(h['host_id'], safe='')}/summary"); host = h; break
+            except urllib.error.HTTPError as e:
+                notes.append(f"{h['host_id']}: {json.loads(e.read() or b'{}').get('error_code', e.code)}")
         if not host:
-            errors.append("Вебмастер: сайт не найден среди сайтов аккаунта: " + ", ".join(h["host_id"] for h in hosts))
+            out.append("## Яндекс Вебмастер")
+            out.append("- Данные ещё не загружены: Яндекс пока обходит сайт (" + ("; ".join(notes) or "сайт не найден в аккаунте") + ")")
         else:
             hid = urllib.parse.quote(host["host_id"], safe="")
-            s = get(f"{WM}/user/{uid}/hosts/{hid}/summary")
             out.append("## Яндекс Вебмастер")
             out.append(f"- Страниц в поиске: **{s.get('searchable_pages_count', '—')}**, исключено: {s.get('excluded_pages_count', '—')}")
             out.append(f"- ИКС: {s.get('sqi', '—')}")
