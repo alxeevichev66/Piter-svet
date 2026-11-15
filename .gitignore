@@ -1,0 +1,4 @@
+# секреты и данные заявок — только на сервере
+api/config.php
+api/data/
+.DS_Store

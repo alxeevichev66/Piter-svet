@@ -1,0 +1,5 @@
+# Закрываем от внешнего доступа всё, кроме обработчика формы
+<FilesMatch "^(config\.php|config\.example\.php)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 403 ^/api/data/
