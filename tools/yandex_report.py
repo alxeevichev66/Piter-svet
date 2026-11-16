@@ -44,7 +44,7 @@ def main():
                 notes.append(f"{h['host_id']}: {json.loads(e.read() or b'{}').get('error_code', e.code)}")
         if not host:
             out.append("## Яндекс Вебмастер")
-            out.append("- Данные ещё не загружены: Яндекс пока обходит сайт (" + ("; ".join(notes) or "сайт не найден в аккаунте") + ")")
+            out.append("- Вебмастер ещё не собрал статистику по сайту (" + ("; ".join(notes) or "сайт не найден в аккаунте") + "). Это не значит, что сайта нет в поиске: переходы из поиска видны в Метрике ниже.")
         else:
             hid = urllib.parse.quote(host["host_id"], safe="")
             out.append("## Яндекс Вебмастер")
