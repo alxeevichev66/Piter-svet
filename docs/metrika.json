@@ -1,0 +1,459 @@
+{
+ "generated": "2026-11-16",
+ "period_start": "2026-10-01",
+ "counter": {
+  "id": 114262207,
+  "name": "Питер свет посещения",
+  "site": "питер-свет.рф",
+  "create_time": "2026-11-15T17:18:46+03:00",
+  "code_status": "CS_ERR_UNKNOWN"
+ },
+ "goals": [],
+ "totals": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   7.0,
+   4.0,
+   57.14285714,
+   813.0,
+   4.57142857
+  ],
+  "rows": [
+   {
+    "d": [],
+    "m": [
+     7.0,
+     4.0,
+     57.14285714,
+     813.0,
+     4.57142857
+    ]
+   }
+  ]
+ },
+ "by_day": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   7.0,
+   4.0,
+   57.14285714,
+   813.0,
+   4.57142857
+  ],
+  "rows": [
+   {
+    "d": [
+     "2026-11-15"
+    ],
+    "m": [
+     4.0,
+     3.0,
+     50.0,
+     1365.75,
+     6.0
+    ]
+   },
+   {
+    "d": [
+     "2026-11-16"
+    ],
+    "m": [
+     3.0,
+     2.0,
+     66.66666667,
+     76.0,
+     2.66666667
+    ]
+   }
+  ]
+ },
+ "sources": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   7.0,
+   4.0,
+   57.14285714,
+   813.0,
+   4.57142857
+  ],
+  "rows": [
+   {
+    "d": [
+     "Переходы из поисковых систем"
+    ],
+    "m": [
+     4.0,
+     2.0,
+     50.0,
+     1418.75,
+     7.0
+    ]
+   },
+   {
+    "d": [
+     "Прямые заходы"
+    ],
+    "m": [
+     2.0,
+     2.0,
+     100.0,
+     0.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "Переходы по ссылкам на сайтах"
+    ],
+    "m": [
+     1.0,
+     1.0,
+     0.0,
+     16.0,
+     2.0
+    ]
+   }
+  ]
+ },
+ "engines": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   4.0,
+   2.0,
+   50.0,
+   1418.75,
+   7.0
+  ],
+  "rows": [
+   {
+    "d": [
+     "Яндекс"
+    ],
+    "m": [
+     4.0,
+     2.0,
+     50.0,
+     1418.75,
+     7.0
+    ]
+   }
+  ]
+ },
+ "search_phrases": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "rows": []
+ },
+ "referers": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   1.0,
+   1.0,
+   0.0,
+   16.0,
+   2.0
+  ],
+  "rows": [
+   {
+    "d": [
+     "metrika.yandex.ru"
+    ],
+    "m": [
+     1.0,
+     1.0,
+     0.0,
+     16.0,
+     2.0
+    ]
+   }
+  ]
+ },
+ "pages_entry": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   7.0,
+   4.0,
+   57.14285714,
+   813.0,
+   4.57142857
+  ],
+  "rows": [
+   {
+    "d": [
+     "https://питер-свет.рф/"
+    ],
+    "m": [
+     6.0,
+     4.0,
+     66.66666667,
+     945.83333333,
+     5.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/?_ym_status-check=114262207&_ym_lang=ru"
+    ],
+    "m": [
+     1.0,
+     1.0,
+     0.0,
+     16.0,
+     2.0
+    ]
+   }
+  ]
+ },
+ "pages_views": {
+  "metrics": [
+   "ym:pv:pageviews",
+   "ym:pv:users"
+  ],
+  "totals": [
+   32.0,
+   4.0
+  ],
+  "rows": [
+   {
+    "d": [
+     "https://питер-свет.рф/"
+    ],
+    "m": [
+     14.0,
+     4.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/#calc"
+    ],
+    "m": [
+     4.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/blog/"
+    ],
+    "m": [
+     4.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/?_ym_status-check=114262207&_ym_lang=ru"
+    ],
+    "m": [
+     2.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/blog/alyuminievaya-provodka-na-mednuyu/"
+    ],
+    "m": [
+     2.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/blog/stoimost-zameny-provodki-spb/"
+    ],
+    "m": [
+     2.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/#contact"
+    ],
+    "m": [
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/blog/zamena-provodki-v-kvartire/"
+    ],
+    "m": [
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/kalkulyator/"
+    ],
+    "m": [
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "d": [
+     "https://питер-свет.рф/uslugi/"
+    ],
+    "m": [
+     1.0,
+     1.0
+    ]
+   }
+  ]
+ },
+ "devices": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   7.0,
+   4.0,
+   57.14285714,
+   813.0,
+   4.57142857
+  ],
+  "rows": [
+   {
+    "d": [
+     "Смартфоны"
+    ],
+    "m": [
+     5.0,
+     2.0,
+     40.0,
+     1138.2,
+     6.0
+    ]
+   },
+   {
+    "d": [
+     "ПК"
+    ],
+    "m": [
+     2.0,
+     2.0,
+     100.0,
+     0.0,
+     1.0
+    ]
+   }
+  ]
+ },
+ "regions": {
+  "metrics": [
+   "ym:s:visits",
+   "ym:s:users",
+   "ym:s:bounceRate",
+   "ym:s:avgVisitDurationSeconds",
+   "ym:s:pageDepth"
+  ],
+  "totals": [
+   6.0,
+   3.0,
+   50.0,
+   948.5,
+   5.16666667
+  ],
+  "rows": [
+   {
+    "d": [
+     "Санкт-Петербург"
+    ],
+    "m": [
+     5.0,
+     2.0,
+     40.0,
+     1138.2,
+     6.0
+    ]
+   },
+   {
+    "d": [
+     "Париж"
+    ],
+    "m": [
+     1.0,
+     1.0,
+     100.0,
+     0.0,
+     1.0
+    ]
+   }
+  ]
+ },
+ "goals_total": {
+  "metrics": [
+   "ym:s:sumGoalReachesAny"
+  ],
+  "totals": [
+   0.0
+  ],
+  "rows": []
+ },
+ "goals_by_source": {
+  "metrics": [
+   "ym:s:sumGoalReachesAny"
+  ],
+  "totals": [
+   0.0
+  ],
+  "rows": []
+ }
+}
