@@ -365,6 +365,101 @@ def build_calc():
          "Калькулятор стоимости электромонтажа", crumbs, main, graph)
 
 
+# ---------------------------------------------------------------- примеры работ (/raboty/)
+# Данные — только от владельца. Цена объекта не публикуется, пока владелец не разрешит (price=None).
+CASES = [
+  {
+    "slug": "2k-prospekt-veteranov",
+    "title": "Черновая электрика в двухкомнатной квартире, 43 м²",
+    "place": "метро «Проспект Ветеранов», Санкт-Петербург",
+    "card": "43 м², 4 дня, бригада из 3 мастеров. Щит на 9 линий с двумя дифавтоматами, подписанные коробки.",
+    "facts": [("flat", "43 м²", "двухкомнатная квартира"), ("clock", "4 дня", "черновой монтаж"),
+              ("home", "3 мастера", "на объекте"), ("panel", "9 линий", "2 дифавтомата, резерв в щите")],
+    "price": None,
+    "done": "2026-11",
+    "photos": [
+      ("shchit", "Щит: 9 линий, каждая подписана"),
+      ("shchit-do", "Все линии сходятся к месту щита в прихожей"),
+      ("shchit-trassy", "Щит смонтирован, кабели заведены сверху"),
+      ("komnata-korobki", "Комната: распредкоробки с подписью назначения и кабеля"),
+      ("komnata-perimetr", "Комната: трассы по периметру потолка, выводы под свет"),
+      ("kuhnya-potolok", "Кухня: линии по потолку к коробке"),
+      ("kuhnya-rozetki", "Кухня: выводы под технику и розетки над столешницей"),
+      ("shtroba", "Вертикальная штроба к блоку из трёх розеток"),
+      ("prihozhaya", "Прихожая: магистраль от щита расходится по комнатам"),
+      ("podezd", "Подъезд: питание квартиры от этажного щита"),
+    ],
+    "lines": [("Дифавтомат 16 А", "ванная"), ("Дифавтомат 16 А", "посудомоечная машина"), ("Автомат 16 А", "духовой шкаф"),
+              ("Автомат 16 А", "розетки кухни"), ("Автомат 16 А", "бойлер"), ("Автомат 16 А", "розетки зала"),
+              ("Автомат 16 А", "розетки спальни и Wi-Fi"), ("Автомат 10 А", "свет комнат"),
+              ("Автомат 10 А", "свет санузла, прихожей и кухни")],
+    "service": ("/uslugi/zamena-provodki-v-kvartire-spb/", "Замена проводки в квартире в СПб"),
+  },
+]
+
+LIGHTBOX = """      <dialog class="lightbox" id="lightbox" aria-label="Фото работы">
+        <form method="dialog"><button class="lightbox__close" aria-label="Закрыть">×</button></form>
+        <img alt="Фото работы">
+        <p class="lightbox__cap"></p>
+      </dialog>
+"""
+
+
+def gallery(c):
+    items = []
+    for i, (_, cap) in enumerate(c["photos"], 1):
+        base = f"/assets/img/cases/{c['slug'].replace('2k-prospekt-veteranov', '2k-veteranov')}/{i:02d}"
+        items.append(f'          <li><button type="button" class="work-photo" data-full="{base}.jpg" aria-label="Открыть фото: {cap}">'
+                     f'<img src="{base}-sm.jpg" alt="{cap}" width="560" height="560" loading="lazy"></button><span>{cap}</span></li>')
+    return ('        <div class="carousel"><ul class="works__grid" tabindex="0">\n' + "\n".join(items) +
+            '\n        </ul><button type="button" class="carousel__btn carousel__btn--prev" aria-label="Предыдущие фото">‹</button>'
+            '<button type="button" class="carousel__btn carousel__btn--next" aria-label="Следующие фото">›</button></div>\n')
+
+
+def build_cases():
+    for c in CASES:
+        path = f"/raboty/{c['slug']}/"
+        crumbs = [("Главная", "/"), ("Примеры работ", "/raboty/"), (c["title"].split(",")[0], None)]
+        rows = [(f"{i}", a, b) for i, (a, b) in enumerate(c["lines"], 1)]
+        body = (p(f'<b>Двухкомнатная квартира 43 м² у метро «Проспект Ветеранов»</b>: бригада «Питер-Света» из трёх мастеров сделала черновую электрику '
+                  'за четыре дня: проложила новые линии, собрала и подписала щит, подготовила выводы под технику и свет до отделки.')
+                + facts(c["facts"], "Объект в цифрах")
+                + '      </article>\n\n      <section class="section"><div class="tile works" data-tile>\n'
+                  '        <h2 class="works__title">Фото с объекта</h2>\n' + gallery(c) + '      </div></section>\n' + LIGHTBOX
+                + '\n      <article class="tile article" data-tile>\n'
+                + h2('Что сделали')
+                + lead_list([("Отдельные линии", "кухня, ванная, бойлер, духовка, посудомоечная машина и каждая комната — на своём автомате."),
+                             ("Защита от утечки тока", "дифавтоматы на ванную и посудомоечную машину — там, где рядом вода."),
+                             ("Трассы", "по потолку с креплением на клипсах, в стенах — вертикальные штробы к розеткам и выключателям."),
+                             ("Подписи", "на каждой распредкоробке — назначение и марка кабеля, в щите — подпись под каждым автоматом."),
+                             ("Резерв", "в щите оставлено свободное место под новую линию.")])
+                + step_table(rows, "Как собран щит", ("№", "Аппарат", "Что питает"))
+                + p(f'Такую же работу в вашей квартире опишем в смете после выезда мастера. Подробнее об услуге — '
+                    f'<a href="{c["service"][0]}">{c["service"][1]}</a>, '
+                    'о том, что ставят в щит, — в статье <a href="/blog/sborka-elektroshchita-v-kvartire/">«Сборка электрощита в квартире»</a>.'))
+        main = article(c["title"], body, "Пример работы").replace('Обновлено <time datetime="2026-11-16">16 ноября 2026</time>',
+                                                                  f'Работа выполнена: ноябрь 2026 · {c["place"]}') + CTA
+        graph = [{"@type": "Article", "headline": c["title"], "about": "Электромонтаж в квартире", "dateCreated": c["done"],
+                  "image": [f"{BASE}/assets/img/cases/2k-veteranov/01.jpg"], "publisher": PROVIDER},
+                 crumbs_ld(crumbs)]
+        page(path, c["title"] + " — " + c["place"].split(",")[0], f'{c["title"]} у {c["place"]}: {c["card"]}', c["title"], crumbs, main, graph)
+
+    cards = "\n".join(
+        f'          <a class="tile post-card" data-tile href="/raboty/{c["slug"]}/"><img src="/assets/img/cases/2k-veteranov/01-sm.jpg" alt="{c["title"]}" '
+        f'width="560" height="560" loading="lazy" style="width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:14px">'
+        f'<h2 class="post-card__title">{c["title"]}</h2><p class="post-card__text">{c["place"]}. {c["card"]}</p>'
+        f'<span class="post-card__more">Смотреть объект →</span></a>' for c in CASES)
+    main = (f'      <section class="section" style="gap:22px">\n'
+            f'        <div class="section__head"><span class="kicker">Портфолио</span><h1 class="h2">Примеры работ</h1></div>\n'
+            f'        <p class="lead-text">Объекты бригады «Питер-Света» в Санкт-Петербурге: площадь, сроки, что сделали, фото с объекта. '
+            f'Больше фото — в разделе <a href="/#works">«Наши работы»</a> на главной.</p>\n'
+            f'        <div class="posts">\n{cards}\n        </div>\n      </section>\n\n' + CTA)
+    crumbs = [("Главная", "/"), ("Примеры работ", None)]
+    page("/raboty/", "Примеры работ электрика в СПб", "Примеры работ бригады «Питер-Свет»: замена проводки и черновая электрика в квартирах Санкт-Петербурга — площадь, сроки, фото с объекта.",
+         "Примеры работ", crumbs, main, [crumbs_ld(crumbs)])
+
+
 if __name__ == "__main__":
     build_services()
     build_calc()
+    build_cases()

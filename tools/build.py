@@ -222,7 +222,7 @@ def build_toc_and_checks(posts):
 
 
 # ---------------------------------------------------------------- общее для всех страниц
-NAV_HTML = ('<nav class="nav" aria-label="Разделы"><a href="/uslugi/">Услуги</a><a href="/#works">Работы</a>'
+NAV_HTML = ('<nav class="nav" aria-label="Разделы"><a href="/uslugi/">Услуги</a><a href="/raboty/">Работы</a>'
             '<a href="/kalkulyator/">Калькулятор</a><a href="/blog/">Статьи</a><a href="/#contact">Контакты</a></nav>')
 FOOT_HTML = ('<nav aria-label="Нижнее меню"><a href="/uslugi/">Услуги</a><a href="/kalkulyator/">Цены</a><a href="/blog/">Статьи</a>'
              '<a href="/privacy/">Конфиденциальность</a><a href="tel:+79601604425">+7 960 160-44-25</a></nav>')
