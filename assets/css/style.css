@@ -442,3 +442,19 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
 .author b{display:block;font-size:16px}
 .author div span{display:block;font-size:14px;line-height:1.4;color:var(--muted-2)}
 .service-link{margin-top:22px;padding:14px 18px;border-radius:14px;background:rgba(217,139,58,.10)}
+
+/* Меню на телефоне: строка разделов под шапкой с прокруткой */
+@media (max-width:900px){
+  .header{flex-wrap:wrap}
+  .nav{display:flex;order:3;width:100%;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:-4px 0 0;padding-bottom:2px}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{flex:none;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.06);font-size:14px;white-space:nowrap}
+}
+@media (max-width:420px){.header{flex-wrap:wrap}}
+
+/* Карточка объекта в блоке «Наши работы» */
+.case-link{display:flex;gap:16px;align-items:center;padding:14px;border-radius:18px;background:rgba(217,139,58,.10);text-decoration:none;color:inherit}
+.case-link img{width:96px;height:96px;border-radius:12px;object-fit:cover;flex:none}
+.case-link b{display:block;font-size:17px;margin-bottom:4px}
+.case-link span{display:block;font-size:14px;color:var(--muted-2);line-height:1.4}
+.case-link em{font-style:normal;color:#D98B3A;font-weight:600;font-size:14px;display:block;margin-top:6px}
